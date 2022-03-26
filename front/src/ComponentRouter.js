@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import ContractorDashboard from "./screens/ContractorDashboard";
 import WorkerDashboard from "./screens/WorkerDashboard";
 import CreateNewProj from "./screens/CreateNewProj";
+import Footer from "./components/Footer";
 
 function App() {
   // const [User,setUser] = useState({
@@ -41,6 +42,7 @@ function App() {
           {/* do not change */}
           <Route path="*" element={<ErrorPage />} />
         </Routes>
+        <Footer />
       </Router>
     </div>
   );

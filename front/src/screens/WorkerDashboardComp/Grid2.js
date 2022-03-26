@@ -11,6 +11,10 @@ import {
     Button,
     useColorModeValue,
     Stack,
+    GridItem,
+    Container,
+    Grid,
+    Heading,
 } from '@chakra-ui/react';
 import { BsPerson } from 'react-icons/bs';
 // import { FiServer } from 'react-icons/fi';
@@ -21,75 +25,43 @@ import React from 'react'
 
 const Grid1 = () => {
 
-
-    const StatsCard = (props) => {
-        const { title, stat, icon, size = '2xl' } = props;
-        return (
-            <Stat
-                px={{ base: 2, md: 4 }}
-                py={'5'}
-                shadow={'xl'}
-                border={'1px solid'}
-                borderColor={useColorModeValue('gray.800', 'gray.500')}
-                rounded={'lg'}>
-                <Flex justifyContent={'space-between'}>
-                    <Box pl={{ base: 2, md: 4 }}>
-                        <StatLabel fontWeight={'bold'} fontSize={'xl'} isTruncated>
-                            {title}
-                        </StatLabel>
-                        <StatNumber fontSize={size} fontWeight={'medium'}>
-                            {stat}
-                        </StatNumber>
-                    </Box>
-                    <Box
-                        my={'auto'}
-                        color={useColorModeValue('gray.800', 'gray.200')}
-                        alignContent={'center'}>
-                        {icon}
-                    </Box>
-                </Flex>
-            </Stat>
-        );
-    }
-
     const GridComp = () => (
         <>
-            <Box
-                // maxW="7xl" 
-                // mx={'auto'} 
-                pt={5}
-            // px={{ base: 2, sm: 12, md: 17 }}
-            >
-                <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
-                    <StatsCard
-                        title={'Total Attendance'}
-                        stat={'600/650 days'}
-                        icon={<BsPerson size={'3em'} />}
-                    />
-                    <StatsCard
-                        title={'Violations'}
-                        stat={
-                            <>
-                                <Text>Today's Violation: 5</Text>
-                                <Text>Total Violations: 7</Text>
-                            </>
-                        }
-                        size={'md'}
-                        icon={<AiFillAlert size={'3em'} />}
-                    />
-                    <StatsCard
-                        title={'Geo-Location'}
-                        stat={
-                            <>
-                                <Text>Lat: </Text>
-                                <Text>Long: </Text>
-                            </>
-                        }
-                        size={'md'}
-                        icon={<GoLocation size={'3em'} />}
-                    />
-                </SimpleGrid>
-            </Box>
+            <Container
+                py={5}
+                maxW={'container.lg'}>
+                <Grid
+                    templateColumns={{
+                        base: 'repeat(1, 1fr)',
+                        sm: 'repeat(2, 1fr)',
+                        md: 'repeat(4, 1fr)',
+                    }}
+                    gap={20}>
+                    <GridItem w="100%" colSpan={{ base: 1, sm: 2, md: 2 }}>
+                        <Heading as={'h2'}>Statistics for Worked <br />Data</Heading>
+                    </GridItem>
+                    <GridItem w="100%">
+                        <Flex flexDirection={'column'}>
+                            <Text fontSize={'4xl'} fontWeight={'bold'}>
+                                20 hours
+                            </Text>
+                            <Box fontSize={'sm'}>
+                                Description for the number of hours worked.
+                            </Box>
+                        </Flex>
+                    </GridItem>
+                    <GridItem w="100%">
+                        <Flex flexDirection={'column'}>
+                            <Text fontSize={'4xl'} fontWeight={'bold'}>
+                                20 days
+                            </Text>
+                            <Box fontSize={'sm'}>
+                                Description for the number of days worked. 
+                            </Box>
+                        </Flex>
+                    </GridItem>                    
+                </Grid>
+            </Container>
         </>
     )
 
