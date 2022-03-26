@@ -8,12 +8,6 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import React from "react";
-import { Row, Col } from "react-bootstrap";
-import styles from "./Dashboard.module.scss";
-import AttendanceChart from "./DashboardComp/AttendanceChart";
-import Grid1 from "./DashboardComp/Grid1";
-import TopNav from "./DashboardComp/TopNav";
-import MyMap from "../components/MyMap";
 import Card from "../components/Card";
 import { useNavigate } from "react-router-dom";
 
