@@ -9,7 +9,7 @@ import Contractor from "./screens/Contractor";
 import ErrorPage from "./screens/ErrorPage";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 // import Dashboard1 from "./screens/Dashboard1";
-import Dashboard from "./screens/Dashboard";
+import ContractorDashboard from "./screens/ContractorDashboard";
 
 function App() {
   // const [User,setUser] = useState({
@@ -25,7 +25,7 @@ function App() {
           <Route path="/worker" exact element={<Worker />} />
           <Route path="/contractor" exact element={<Contractor />} />
           <Route path="/owner" exact element={<Owner />} />
-          <Route path="/dashboard" exact element={<Dashboard />}></Route>
+          <Route path="/contractor/dashboard" exact element={<ContractorDashboard />}></Route>
           <Route path="/" exact element={<Home />}></Route>
           {/* do not change */}
           <Route path="*" element={<ErrorPage />} />

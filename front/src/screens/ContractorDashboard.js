@@ -1,9 +1,9 @@
 import { Box, Center, Flex, Grid, GridItem, Heading } from '@chakra-ui/react';
 import React from 'react';
-import styles from "./Dashboard.module.scss";
-import AttendanceChart from './DashboardComp/AttendanceChart';
-import Grid1 from './DashboardComp/Grid1';
-import TopNav from "./DashboardComp/TopNav";
+import styles from "./ContractorDashboard.module.scss";
+import AttendanceChart from './ContractorDashboardComp/AttendanceChart';
+import Grid1 from './ContractorDashboardComp/Grid1';
+import TopNav from "./ContractorDashboardComp/TopNav";
 import MyMap from "../components/MyMap";
 
 const Dashboard = () => {
