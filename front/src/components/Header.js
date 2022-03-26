@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ReactNode } from "react";
 import $ from "jquery";
 import {
@@ -23,21 +23,41 @@ import {
 import { useNavigate } from "react-router-dom";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-// import "../css/css-animation.css";
+// import "../styles/styles.css";
 import axiosInstance from "../axios";
 
 function Header() {
   const navigate = useNavigate();
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const Links = ["Dashboard", "Projects", "Team", "SignUp", "Contact"];
-  const LinksTo = {
-    Dashboard: "/",
-    Projects: "/projects",
-    Team: "/team",
-    SignUp: "/signup",
-    Contact: "/contact",
-  };
+
+  const [user, setUser] = useState({
+    isLoggedIn: false,
+    name: 'user',
+  });
+
+  const checkLogIn = () => {
+    const userName = localStorage.getItem('name');
+    if (!userName) {
+      setUser({
+        isLoggedIn: true,
+        name: userName,
+      })
+    }
+  }
+
+  useEffect(() => {
+    checkLogIn();
+  }, [])
+
+  // const Links = ["Dashboard", "Projects", "Team", "SignUp", "Contact"];
+  // const LinksTo = {
+  //   Dashboard: "/",
+  //   Projects: "/projects",
+  //   Team: "/team",
+  //   SignUp: "/signup",
+  //   Contact: "/contact",
+  // };
   $(function () {
     var header = $("#header"),
       height = header.height(),
@@ -57,20 +77,20 @@ function Header() {
     });
   });
 
-  const NavLink = ({ children }) => (
-    <Link
-      px={2}
-      py={1}
-      rounded={"md"}
-      _hover={{
-        textDecoration: "none",
-        bg: useColorModeValue("gray.200", "gray.700"),
-      }}
-      href={`${LinksTo[children]}`}
-    >
-      {children}
-    </Link>
-  );
+  // const NavLink = ({ children }) => (
+  //   <Link
+  //     px={2}
+  //     py={1}
+  //     rounded={"md"}
+  //     _hover={{
+  //       textDecoration: "none",
+  //       bg: useColorModeValue("gray.200", "gray.700"),
+  //     }}
+  //     href={`${LinksTo[children]}`}
+  //   >
+  //     {children}
+  //   </Link>
+  // );
   return (
     <Box
       id="header"
@@ -91,11 +111,11 @@ function Header() {
         />
         <HStack spacing={8} alignItems={"center"}>
           <Box>My Logo</Box>
-          <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
+          {/* <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
             {Links.map((link) => (
               <NavLink key={link}>{link}</NavLink>
             ))}
-          </HStack>
+          </HStack> */}
         </HStack>
         <Flex alignItems={"center"}>
           <Stack direction={"row"} spacing={7}>
@@ -130,27 +150,34 @@ function Header() {
                 </Center>
                 <br />
                 <MenuDivider />
-                <MenuItem>Your Servers</MenuItem>
-                <MenuItem>Account Settings</MenuItem>
-                <MenuItem
-                  onClick={(e) => {
-                    axiosInstance.post("logout/blacklist/", {
-                      refresh_token: sessionStorage.getItem("refresh_token"),
-                    });
-                    sessionStorage.clear();
-                    axiosInstance.defaults.headers["Authorization"] = null;
-                    navigate("/login");
-                  }}
-                >
-                  Logout
-                </MenuItem>
+                {user.isLoggedIn ? (
+                  <>
+                    <MenuItem>Sign In</MenuItem>
+                    <MenuItem>Sign Up</MenuItem>
+                  </>
+                ) : (
+                  <MenuItem
+                    onClick={(e) => {
+                      axiosInstance.post("logout/blacklist/", {
+                        refresh_token: sessionStorage.getItem("refresh_token"),
+                      });
+                      sessionStorage.clear();
+                      axiosInstance.defaults.headers["Authorization"] = null;
+                      navigate("/login");
+                    }}
+                  >
+                    Logout
+                  </MenuItem>
+
+                )}
+
               </MenuList>
             </Menu>
           </Stack>
         </Flex>
       </Flex>
 
-      {isOpen ? (
+      {/* {isOpen ? (
         <Box pb={4} display={{ md: "none" }}>
           <Stack as={"nav"} spacing={4}>
             {Links.map((link) => (
@@ -158,7 +185,7 @@ function Header() {
             ))}
           </Stack>
         </Box>
-      ) : null}
+      ) : null} */}
     </Box>
   );
 }
