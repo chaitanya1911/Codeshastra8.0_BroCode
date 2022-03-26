@@ -10,6 +10,8 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 from django.contrib.auth.models import User,auth
 from random import randint
+import cloudinary
+import cloudinary.search
 from django.core.mail import send_mail,EmailMultiAlternatives
 from django.template.loader import get_template
 
@@ -54,8 +56,14 @@ def signup(request):
         if User.objects.filter(email=data['email']).exists():
             return JsonResponse({"exists":1},safe=False)
         else:    
-            user = User.objects.create(username=data['email'],email=data['email'],password=make_password(data['pass']),first_name=data['first_name'],last_name=data['last_name'])
-            user.save()
+            
+            try:
+                imgU=cloudinary.uploader.upload(data['imgUrl'],folder='codeshastra'.format(data['email']),invalidate_caches=True,overwrite=True,resource_type='image')
+                imgId=imgU['url']
+            except:
+                imgId=None
+            # user = User.objects.create(username=data['email'],email=data['email'],password=make_password(data['pass']),first_name=data['first_name'],last_name=data['last_name'])
+            # user.save()
             return JsonResponse({"exists":0},safe=False)
 
 @csrf_exempt

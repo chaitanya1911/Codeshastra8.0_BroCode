@@ -36,7 +36,7 @@ from django.db import models
 #     gender = models.CharField(max_length=10)
 #     address = models.TextField()
 #     verified = models.BooleanField(default=False)
-    # aadhar = models.CharField(max_length=20,null=True,Blank=True)
+#     aadhar = models.CharField(max_length=20,null=True,blank=True)
 
 # class Attendance(models.Model):
 #     worker = models.ForeignKey(Worker,on_delete=models.CASCADE)

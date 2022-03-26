@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -127,6 +131,12 @@ CORS_ORIGIN_WHITELIST=['http://localhost:3000']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+
+cloudinary.config( 
+  cloud_name = "chaitanya1911", 
+  api_key = "289591472265554",
+  api_secret = "ceVXMwIZVQCuQd8-djLADfvGWkA"
+)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
