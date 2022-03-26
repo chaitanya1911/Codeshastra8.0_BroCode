@@ -40,8 +40,8 @@ function Login() {
       .then((res) => {
         let acc_token = "JWT " + res.data.access;
         axiosInstance.defaults.headers["Authorization"] = acc_token;
-        sessionStorage.setItem("access_token", res.data.access);
-        sessionStorage.setItem("refresh_token", res.data.refresh);
+        localStorage.setItem("access_token", res.data.access);
+        localStorage.setItem("refresh_token", res.data.refresh);
         const loginuser = async () =>
           await axiosInstance
             .post("api/login", {
@@ -51,13 +51,13 @@ function Login() {
             })
             .then((res) => {
               if (res.data.type === 1) {
-                sessionStorage.setItem("wid", res.data.id);
-                navigate("/manager");
+                localStorage.setItem("wid", res.data.id);
+                navigate("/owner");
               } else if (res.data.type === 2) {
-                sessionStorage.setItem("wid", res.data.id);
-                navigate("/constructm");
+                localStorage.setItem("wid", res.data.id);
+                navigate("/contractor");
               } else {
-                sessionStorage.setItem("wid", res.data.id);
+                localStorage.setItem("wid", res.data.id);
                 navigate("/worker");
               }
             })
