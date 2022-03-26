@@ -17,7 +17,7 @@ from django.template.loader import get_template
 
 from .serializers import ContactSerializer
 
-from . models import Aadhar, Contractor,Project
+from . models import Aadhar, Contractor,Project, Worker
 
 
 class BlackListTokenView(APIView):
@@ -64,8 +64,11 @@ def signup(request):
                 imgId=imgU['url']
             except:
                 imgId=None
-            # user = User.objects.create(username=data['email'],email=data['email'],password=make_password(data['pass']),first_name=data['first_name'],last_name=data['last_name'])
-            # user.save()
+            user = User.objects.create(username=data['email'],email=data['email'],password=make_password(data['pass']),first_name=data['first_name'],last_name=data['last_name'])
+            
+            worker=Worker(user=user,email=data['email'],name=f"{data['first_name']} {data['last_name']}",photo=imgId,gender=data['gender'],address=data['address'],phone=data['phone'])
+            user.save()
+            worker.save()
             return JsonResponse({"exists":0},safe=False)
 
 @csrf_exempt

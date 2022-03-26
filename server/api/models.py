@@ -1,6 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Contractor(models.Model):
+    user=models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
     name = models.CharField(max_length=150)
     email = models.EmailField()
     photo = models.CharField(max_length=300)
@@ -24,6 +26,7 @@ class Project(models.Model):
         return self.name
 
 class Owner(models.Model):
+    user=models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
     name = models.CharField(max_length=150)
     email = models.EmailField()
     photo = models.CharField(max_length=300)
@@ -35,6 +38,7 @@ class Owner(models.Model):
 
 
 class Worker(models.Model):
+    user=models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
     Contractor = models.ForeignKey(Contractor,on_delete=models.SET_NULL,null=True)
     name = models.CharField(max_length=150)
     email = models.EmailField()

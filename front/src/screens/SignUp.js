@@ -16,6 +16,7 @@ import {
   Link,
   Center,
   Avatar,
+  Select,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -23,6 +24,7 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Textarea,
 } from "@chakra-ui/react";
 import GoogleLogin from "react-google-login";
 import { useNavigate } from "react-router-dom";
@@ -44,18 +46,15 @@ export default function SignUp() {
     last_name: "",
     first_name: "",
     imgUrl: "",
+    address: "",
+    phone: "",
+    gender: "",
   });
   const navigate = useNavigate();
 
   //Call this on Form Submit
   const addNewUserChatEngine = (e) => {
     e.preventDefault();
-    var data = {
-      username: formData.email,
-      first_name: formData.first_name,
-      last_name: formData.last_name,
-      imgUrl: formData.imgUrl,
-    };
 
     const createuser = async () =>
       await axiosInstance
@@ -250,9 +249,6 @@ export default function SignUp() {
               <Heading fontSize={"4xl"} textAlign={"center"}>
                 Sign up
               </Heading>
-              <Text fontSize={"lg"} color={"gray.600"}>
-                to enjoy all of our cool features ✌️
-              </Text>
             </Stack>
 
             <Box
@@ -353,6 +349,40 @@ export default function SignUp() {
                       </Button>
                     </InputRightElement>
                   </InputGroup>
+                </FormControl>
+                <FormControl id="phone" isRequired>
+                  <FormLabel>Phone</FormLabel>
+                  <InputGroup>
+                    <Input
+                      onChange={handleChange}
+                      name="phone"
+                      value={formData.phone}
+                      type="number"
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl id="address" isRequired>
+                  <FormLabel>Address</FormLabel>
+                  <InputGroup>
+                    <Textarea
+                      onChange={handleChange}
+                      name="address"
+                      value={formData.address}
+                      type="text"
+                      required
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl id="gender" isRequired>
+                  <Select
+                    placeholder="Select option"
+                    name="gender"
+                    onChange={handleChange}
+                  >
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </Select>
                 </FormControl>
                 <Stack spacing={10} pt={2}>
                   <Button
