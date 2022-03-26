@@ -5,14 +5,14 @@ export const Context = createContext();
 
 export const DataProvider = (props) => {
     const [userData, setUserData] = useState({
-        id: localStorage.getItem('id') ?  localStorage.getItem('id'):'',
-        name: localStorage.getItem('name') ?  localStorage.getItem('name'):'user',
-        type: localStorage.getItem('type') ?  localStorage.getItem('type'):'',
+        id: localStorage.getItem('id') ? localStorage.getItem('id') : '',
+        name: localStorage.getItem('name') ? localStorage.getItem('name') : 'user',
+        type: localStorage.getItem('type') ? localStorage.getItem('type') : '',
         isLoggedIn: false,
-        photo: "",
-        email: "",
+        photo: localStorage.getItem('photo') ? localStorage.getItem('photo') : '',
+        email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
     });
-    
+
     const baseData = {};
 
     return (

@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import { ReactNode } from "react";
+import React, { useContext } from "react";
 import $ from "jquery";
 import {
   Box,
@@ -34,14 +33,39 @@ function Header() {
 
   const [baseData, userData, setUserData] = useContext(Context);
 
-  // const Links = ["Dashboard", "Projects", "Team", "SignUp", "Contact"];
-  // const LinksTo = {
-  //   Dashboard: "/",
-  //   Projects: "/projects",
-  //   Team: "/team",
-  //   SignUp: "/signup",
-  //   Contact: "/contact",
-  // };
+  const Links = ["Dashboard", "Projects", "Team", "SignUp", "Contact"];
+  const LinksTo = {
+    Home: "/dashbord",
+    Projects: "/projects",
+    Team: "/team",
+  };
+
+  const LinkNav = {
+    1: [],
+    2: [
+      { page: "Home", link: "/contractor/dashboard/home" },
+      { page: "Assign", link: "/contractor/dashboard/assign" },
+      { page: "Violations", link: "/contractor/dashboard/violations" },
+    ],
+    3: [
+      { page: "Home", link: "/contractor/dashboard/home" },
+      { page: "Assign", link: "/contractor/dashboard/assign" },
+      { page: "Violations", link: "/contractor/dashboard/violations" },
+    ]
+  }
+
+  const LinkToContractor = [
+    { page: "Home", link: "/contractor/dashboard/home" },
+    { page: "Assign", link: "/contractor/dashboard/assign" },
+    { page: "Violations", link: "/contractor/dashboard/violations" },
+  ]
+
+  const LinkToWorker = [
+    { page: "Home", link: "/contractor/dashboard/home" },
+    { page: "Assign", link: "/contractor/dashboard/assign" },
+    { page: "Violations", link: "/contractor/dashboard/violations" },
+  ]
+
   $(function () {
     var header = $("#header"),
       height = header.height(),
@@ -61,20 +85,21 @@ function Header() {
     });
   });
 
-  // const NavLink = ({ children }) => (
-  //   <Link
-  //     px={2}
-  //     py={1}
-  //     rounded={"md"}
-  //     _hover={{
-  //       textDecoration: "none",
-  //       bg: useColorModeValue("gray.200", "gray.700"),
-  //     }}
-  //     href={`${LinksTo[children]}`}
-  //   >
-  //     {children}
-  //   </Link>
-  // );
+  const NavLink = ({ children }) => (
+    <Link
+      px={2}
+      py={1}
+      rounded={"md"}
+      _hover={{
+        textDecoration: "none",
+        bg: useColorModeValue("gray.200", "gray.700"),
+      }}
+      to={children}
+    // to={`/`}
+    >
+      {children}
+    </Link>
+  );
   return (
     <Box
       id="header"
@@ -84,7 +109,7 @@ function Header() {
       as="header"
       backdropFilter="saturate(180%) blur(5px)"
       w="100%"
-      style={{position: "sticky", top: 0}}
+      style={{ position: "sticky", top: 0 }}
     >
       <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
         <IconButton
@@ -96,11 +121,17 @@ function Header() {
         />
         <HStack spacing={8} alignItems={"center"}>
           <Box>My Logo</Box>
-          {/* <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
-            {Links.map((link) => (
-              <NavLink key={link}>{link}</NavLink>
-            ))}
-          </HStack> */}
+          <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
+
+            {
+              LinkNav[userData.type] &&
+              LinkNav[userData.type].map((link, key) => (
+                <NavLink key={key} children={link.link}>{link.page}</NavLink>
+              ))
+            }
+
+
+          </HStack>
         </HStack>
         <Flex alignItems={"center"}>
           <Stack direction={"row"} spacing={7}>
@@ -141,8 +172,8 @@ function Header() {
                 <MenuDivider />
                 {!userData.isLoggedIn ? (
                   <>
-                    <Link to={'/login'}><MenuItem>Sign In</MenuItem></Link> 
-                    <Link to={'/signup'}><MenuItem>Sign Up</MenuItem></Link>  
+                    <Link to={'/login'}><MenuItem>Sign In</MenuItem></Link>
+                    <Link to={'/signup'}><MenuItem>Sign Up</MenuItem></Link>
                   </>
                 ) : (
                   <MenuItem
