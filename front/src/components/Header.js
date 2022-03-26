@@ -52,19 +52,19 @@ function Header() {
       { page: "Home", link: "/contractor/dashboard/home" },
       { page: "Assign", link: "/contractor/dashboard/assign" },
       { page: "Violations", link: "/contractor/dashboard/violations" },
-    ]
-  }
+    ],
+  };
 
   const LinkToContractor = [
     { page: "Home", link: "/contractor/dashboard/" },
     { page: "Assign", link: "/contractor/dashboard/assign" },
     { page: "Violations", link: "/contractor/dashboard/violations" },
-  ]
+  ];
 
   const LinkToWorker = [
     { page: "Home", link: "/contractor/dashboard/" },
-    { page: "Statistics", link: "/contractor/dashboard/statistics" },    
-  ]
+    { page: "Statistics", link: "/contractor/dashboard/statistics" },
+  ];
 
   $(function () {
     var header = $("#header"),
@@ -95,7 +95,7 @@ function Header() {
         bg: useColorModeValue("gray.200", "gray.700"),
       }}
       to={children}
-    // to={`/`}
+      // to={`/`}
     >
       {children}
     </Link>
@@ -122,15 +122,12 @@ function Header() {
         <HStack spacing={8} alignItems={"center"}>
           <Box>My Logo</Box>
           <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
-
-            {
-              LinkNav[userData.type] &&
+            {LinkNav[userData.type] &&
               LinkNav[userData.type].map((link, key) => (
-                <NavLink key={key} children={link.link}>{link.page}</NavLink>
-              ))
-            }
-
-
+                <NavLink key={key} children={link.link}>
+                  {link.page}
+                </NavLink>
+              ))}
           </HStack>
         </HStack>
         <Flex alignItems={"center"}>
@@ -147,18 +144,12 @@ function Header() {
                 cursor={"pointer"}
                 minW={0}
               >
-                <Avatar
-                  size={"sm"}
-                  src={"https://avatars.dicebear.com/api/male/username.svg"}
-                />
+                <Avatar size={"sm"} src={userData.photo} />
               </MenuButton>
               <MenuList alignItems={"center"}>
                 <br />
                 <Center>
-                  <Avatar
-                    size={"2xl"}
-                    src={"https://avatars.dicebear.com/api/male/username.svg"}
-                  />
+                  <Avatar size={"2xl"} src={userData.photo} />
                 </Center>
                 <br />
                 <Center>
@@ -172,28 +163,36 @@ function Header() {
                 <MenuDivider />
                 {!userData.isLoggedIn ? (
                   <>
-                    <Link to={'/login'}><MenuItem>Sign In</MenuItem></Link>
-                    <Link to={'/signup'}><MenuItem>Sign Up</MenuItem></Link>
+                    <Link to={"/login"}>
+                      <MenuItem>Sign In</MenuItem>
+                    </Link>
+                    <Link to={"/signup"}>
+                      <MenuItem>Sign Up</MenuItem>
+                    </Link>
                   </>
                 ) : (
-                  <MenuItem
-                    onClick={(e) => {
-                      setUserData({
-                        isLoggedIn: false,
-                        name: "user",
-                        type: "",
-                        id: "",
-                      });
-                      axiosInstance.post("logout/blacklist/", {
-                        refresh_token: sessionStorage.getItem("refresh_token"),
-                      });
-                      localStorage.clear();
-                      axiosInstance.defaults.headers["Authorization"] = null;
-                      navigate("/login");
-                    }}
-                  >
-                    Logout
-                  </MenuItem>
+                  <>
+                    <MenuItem>Edit Profile</MenuItem>
+                    <MenuItem
+                      onClick={(e) => {
+                        setUserData({
+                          isLoggedIn: false,
+                          name: "user",
+                          type: "",
+                          id: "",
+                        });
+                        axiosInstance.post("logout/blacklist/", {
+                          refresh_token:
+                            sessionStorage.getItem("refresh_token"),
+                        });
+                        localStorage.clear();
+                        axiosInstance.defaults.headers["Authorization"] = null;
+                        navigate("/login");
+                      }}
+                    >
+                      Logout
+                    </MenuItem>
+                  </>
                 )}
               </MenuList>
             </Menu>

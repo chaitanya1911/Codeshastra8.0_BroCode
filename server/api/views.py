@@ -17,7 +17,7 @@ from django.template.loader import get_template
 
 from .serializers import ContactSerializer
 
-from . models import Aadhar, Contractor,Project, Worker
+from . models import Aadhar, Contractor,Project, Worker,Owner
 
 
 class BlackListTokenView(APIView):
@@ -40,16 +40,27 @@ def login(request):
         userr = User.objects.get(username=username)
         idd=0
         type=3
+        photo=""
+        email=""
         if userr.is_superuser ==True:
-            # idd = Manager.objects.get(user=userr).id
+            ow  =Owner.objects.get(user=userr)
+            idd = ow.id
+            photo =ow.photo
+            email = ow.email 
             type=1
         elif userr.is_staff ==True:
-            # idd = CManager.objects.get(user=userr).id
+            cn = Contractor.objects.get(user=userr)
+            idd = cn.id
+            photo =cn.photo
+            email = cn.email 
             type=2
         else:
-            # idd= Worker.objects.get(user = userr).id
+            wo= Worker.objects.get(user = userr)
+            idd = wo.id
+            photo =wo.photo
+            email = wo.email 
             type=3
-        return JsonResponse({'type':type,'id':idd,'name':userr.first_name},safe=False)
+        return JsonResponse({'type':type,'id':idd,'name':userr.first_name,'photo':photo,'email':email},safe=False)
 
 @csrf_exempt
 def signup(request):

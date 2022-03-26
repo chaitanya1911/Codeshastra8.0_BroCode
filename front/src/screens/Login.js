@@ -83,12 +83,16 @@ function Login() {
                 localStorage.setItem("name", res.data.name);
                 localStorage.setItem("wid", res.data.id);
                 localStorage.setItem("type", res.data.type);
+                localStorage.setItem("email", res.data.email);
+                localStorage.setItem("photo", res.data.photo);
                 setUserData({
                   ...userData,
                   name: res.data.name,
                   id: res.data.id,
                   type: res.data.type,
                   isLoggedIn: true,
+                  email: res.data.email,
+                  photo: res.data.photo,
                 });
                 navigate("/worker/dashboard");
               }
