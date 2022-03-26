@@ -38,7 +38,8 @@ function Header() {
 
   const checkLogIn = () => {
     const userName = localStorage.getItem('name');
-    if (!userName) {
+    console.log(userName)
+    if (userName) {
       setUser({
         isLoggedIn: true,
         name: userName,
@@ -154,7 +155,7 @@ function Header() {
                 </Center>
                 <br />
                 <MenuDivider />
-                {user.isLoggedIn ? (
+                {!user.isLoggedIn ? (
                   <>
                     <MenuItem>Sign In</MenuItem>
                     <MenuItem>Sign Up</MenuItem>
@@ -162,10 +163,12 @@ function Header() {
                 ) : (
                   <MenuItem
                     onClick={(e) => {
+                      setUser({isLoggedIn: false,
+                        name: 'user',})
                       axiosInstance.post("logout/blacklist/", {
                         refresh_token: sessionStorage.getItem("refresh_token"),
                       });
-                      sessionStorage.clear();
+                      localStorage.clear();
                       axiosInstance.defaults.headers["Authorization"] = null;
                       navigate("/login");
                     }}

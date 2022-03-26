@@ -39,7 +39,7 @@ def login(request):
         else:
             # idd= Worker.objects.get(user = userr).id
             type=3
-        return JsonResponse({'type':type,'id':idd},safe=False)
+        return JsonResponse({'type':type,'id':idd,'name':userr.first_name},safe=False)
 
 @csrf_exempt
 def signup(request):

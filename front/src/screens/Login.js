@@ -52,11 +52,14 @@ function Login() {
             .then((res) => {
               if (res.data.type === 1) {
                 localStorage.setItem("wid", res.data.id);
+                localStorage.setItem('name',res.data.name)
                 navigate("/owner");
               } else if (res.data.type === 2) {
+                localStorage.setItem('name',res.data.name)
                 localStorage.setItem("wid", res.data.id);
                 navigate("/contractor");
               } else {
+                localStorage.setItem('name',res.data.name)
                 localStorage.setItem("wid", res.data.id);
                 navigate("/worker");
               }
