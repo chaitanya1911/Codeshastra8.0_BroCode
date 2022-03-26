@@ -12,7 +12,7 @@ const TopNav = () => {
 
             <Box>
                 <Box>
-                    <Heading size={'4xl'}>Dashboard</Heading>
+                    <Heading size={'xl'}>Dashboard</Heading>
                 </Box>
                 {/* <Spacer />
                 <Box>

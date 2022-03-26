@@ -44,6 +44,7 @@ function Header() {
     1: [],
     2: [
       { page: "Home", link: "/contractor/dashboard/home" },
+      { page: "Attendance", link: "/contractor/dashboard/attendance" },
       { page: "Assign", link: "/contractor/dashboard/assign" },
       { page: "Violations", link: "/contractor/dashboard/violations" },
     ],
