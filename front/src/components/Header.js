@@ -148,8 +148,8 @@ function Header() {
                 <Center>
                   {
                     user.isLoggedIn ? (
-                      <p>Hello User!</p>
-                    ) : ( <p>Hello {user.name}!</p> )
+                      <p>Hello {user.name}!</p> 
+                    ) : ( <p>Hello User!</p> )
                   }
                 </Center>
                 <br />
