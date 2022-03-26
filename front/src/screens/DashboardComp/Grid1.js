@@ -12,7 +12,8 @@ import {
 } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 import { BsPerson } from 'react-icons/bs';
-import { FiServer } from 'react-icons/fi';
+// import { FiServer } from 'react-icons/fi';
+import { AiFillAlert } from "react-icons/ai";
 import { GoLocation } from 'react-icons/go';
 import React from 'react'
 
@@ -69,7 +70,7 @@ const GridComp = () => (
                     </>
                 }
                 size={'md'}
-                icon={<FiServer size={'3em'} />}
+                icon={<AiFillAlert size={'3em'} />}
             />
             <StatsCard
                 title={'Geo-Location'}
