@@ -15,7 +15,9 @@ import cloudinary.search
 from django.core.mail import send_mail,EmailMultiAlternatives
 from django.template.loader import get_template
 
-from . models import Aadhar
+from .serializers import ContactSerializer
+
+from . models import Aadhar, Contractor,Project
 
 
 class BlackListTokenView(APIView):
@@ -100,6 +102,27 @@ def verifyotp(request):
             return JsonResponse({'done':1},safe=False)
         else:    
             return JsonResponse({'done':0},safe=False)
+
+@csrf_exempt
+def createProj(request):
+    if request.method == "POST":
+        data= JSONParser().parse(request)['data']
+        print(data)
+        contract = Contractor.objects.get(id=data['contractor'])
+        contract.occupied=True
+        contract.save()
+        proj = Project.objects.create(name=data['name'],desc=data['desc'],location={'lats':data['lats'],'lng':data['long']},start=data['date'],contractor=contract)
+        proj.save()
+        return JsonResponse("created",safe=False)  
+
+@csrf_exempt
+def getContractors(request):
+    if request.method == "GET":
+        c=Contractor.objects.filter(occupied=False)
+        c=ContactSerializer(c,many=True).data
+        return JsonResponse({'data':c},safe=False)  
+
+
   
 
 

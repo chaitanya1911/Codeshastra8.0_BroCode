@@ -10,7 +10,7 @@ import {
   useMapEvents,
 } from "react-leaflet";
 
-function DraggableMarker() {
+function DraggableMarker({ formData, setloc }) {
   const center = {
     lat: 19.2307,
     lng: 72.8567,
@@ -24,6 +24,7 @@ function DraggableMarker() {
         const marker = markerRef.current;
         if (marker != null) {
           setPosition(marker.getLatLng());
+          setloc(marker.getLatLng().lat, marker.getLatLng().lng);
           console.log(marker.getLatLng());
         }
       },
@@ -67,7 +68,7 @@ const myIcon = L.icon({
   iconSize: [40, 50],
 });
 
-function DragableMarkerMap() {
+function DragableMarkerMap({ formData, setloc }) {
   return (
     <MapContainer
       style={{ height: "400px", width: "100%" }}
@@ -78,7 +79,11 @@ function DragableMarkerMap() {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <DraggableMarker icon={myIcon}></DraggableMarker>
+      <DraggableMarker
+        formData={formData}
+        setloc={setloc}
+        icon={myIcon}
+      ></DraggableMarker>
     </MapContainer>
   );
 }

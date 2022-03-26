@@ -9,6 +9,9 @@ class Contractor(models.Model):
     verified = models.BooleanField(default=False)
     gender = models.CharField(max_length=10)
     address = models.TextField()
+    occupied=models.BooleanField(default=False)
+    def __str__(self):
+        return self.name
 
 class Project(models.Model):
     contractor = models.ForeignKey(Contractor,on_delete=models.SET_NULL,null=True)

@@ -6,4 +6,6 @@ urlpatterns = [
     path('api/signup',views.signup),
     path('api/generateotp',views.otp),
     path('api/verifyotp',views.verifyotp),
+    path('api/createproj',views.createProj),
+    path('api/getContract',views.getContractors),
 ]
