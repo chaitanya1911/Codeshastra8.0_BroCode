@@ -146,7 +146,11 @@ function Header() {
                 </Center>
                 <br />
                 <Center>
-                  <p>Username</p>
+                  {
+                    user.isLoggedIn ? (
+                      <p>Hello User!</p>
+                    ) : ( <p>Hello {user.name}!</p> )
+                  }
                 </Center>
                 <br />
                 <MenuDivider />
