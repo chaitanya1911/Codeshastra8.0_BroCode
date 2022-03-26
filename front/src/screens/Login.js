@@ -66,7 +66,7 @@ function Login() {
                   type: res.data.type,
                   isLoggedIn: true,
                 });
-                navigate("/owner");
+                navigate("/owner/dashboard");
               } else if (res.data.type === 2) {
                 localStorage.setItem("name", res.data.name);
                 localStorage.setItem("wid", res.data.id);
@@ -78,7 +78,7 @@ function Login() {
                   type: res.data.type,
                   isLoggedIn: true,
                 });
-                navigate("/contractor");
+                navigate("/contractor/dashboard");
               } else {
                 localStorage.setItem("name", res.data.name);
                 localStorage.setItem("wid", res.data.id);
@@ -90,7 +90,7 @@ function Login() {
                   type: res.data.type,
                   isLoggedIn: true,
                 });
-                navigate("/worker");
+                navigate("/worker/dashboard");
               }
             })
             .catch((e) => console.log(e));
