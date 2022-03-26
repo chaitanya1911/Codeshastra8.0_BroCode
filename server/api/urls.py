@@ -8,4 +8,5 @@ urlpatterns = [
     path('api/verifyotp',views.verifyotp),
     path('api/createproj',views.createProj),
     path('api/getContract',views.getContractors),
+    path('api/ocr',views.ocr),
 ]

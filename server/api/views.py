@@ -116,6 +116,10 @@ def createProj(request):
         return JsonResponse("created",safe=False)  
 
 @csrf_exempt
+def ocr(request):
+    if request.method == "GET":
+        return JsonResponse("created",safe=False) 
+@csrf_exempt
 def getContractors(request):
     if request.method == "GET":
         c=Contractor.objects.filter(occupied=False)
