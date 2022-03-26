@@ -1,14 +1,13 @@
 import "./App.css";
-import ContextComponentHolder from "./ContextComponentHolder";
-// import Login from "./screens/Login";
-// import SignUp from "./screens/SignUp";
-// import Header from "./components/Header";
-// import Home from './screens/Home'
-// import Owner from "./screens/Owner";
-// import Worker from "./screens/Worker";
-// import Contractor from "./screens/Contractor";
-// import ErrorPage from "./screens/ErrorPage";
-// import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Login from "./screens/Login";
+import SignUp from "./screens/SignUp";
+import Header from "./components/Header";
+import Home from './screens/Home'
+import Owner from "./screens/Owner";
+import Worker from "./screens/Worker";
+import Contractor from "./screens/Contractor";
+import ErrorPage from "./screens/ErrorPage";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 // import { useState } from "react";
 
 function App() {
@@ -17,7 +16,7 @@ function App() {
   // })
   return (
     <div className="App">
-      {/* <Router>
+      <Router>
         <Header></Header>
         <Routes>
           <Route path="/login" exact element={<Login />} />
@@ -26,11 +25,10 @@ function App() {
           <Route path="/worker" exact element={<Worker />} />
           <Route path="/contractor" exact element={<Contractor />} />
           <Route path="/owner" exact element={<Owner />} />
-          do not change
+          {/* do not change */}
           <Route path="*" element={<ErrorPage />} />
         </Routes>
-      </Router> */}
-      <ContextComponentHolder />
+      </Router>
     </div>
   );
 }

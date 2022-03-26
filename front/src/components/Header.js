@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ReactNode } from "react";
 import $ from "jquery";
 import {
   Box,
   Flex,
   Avatar,
-  Link,
+  // Link,
   Button,
   Menu,
   MenuButton,
@@ -25,31 +25,14 @@ import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 // import "../styles/styles.css";
 import axiosInstance from "../axios";
+import { Context } from "../ContextData";
 
 function Header() {
   const navigate = useNavigate();
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [user, setUser] = useState({
-    isLoggedIn: false,
-    name: 'user',
-  });
-
-  const checkLogIn = () => {
-    const userName = localStorage.getItem('name');
-    console.log(userName)
-    if (userName) {
-      setUser({
-        isLoggedIn: true,
-        name: userName,
-      })
-    }
-  }
-
-  useEffect(() => {
-    checkLogIn();
-  }, [])
+  const [userData, setUserData] = useContext(Context);
 
   // const Links = ["Dashboard", "Projects", "Team", "SignUp", "Contact"];
   // const LinksTo = {
@@ -148,14 +131,14 @@ function Header() {
                 <br />
                 <Center>
                   {
-                    user.isLoggedIn ? (
-                      <p>Hello {user.name}!</p> 
+                    userData.isLoggedIn ? (
+                      <p>Hello {userData.name}!</p> 
                     ) : ( <p>Hello User!</p> )
                   }
                 </Center>
                 <br />
                 <MenuDivider />
-                {!user.isLoggedIn ? (
+                {!userData.isLoggedIn ? (
                   <>
                     <MenuItem>Sign In</MenuItem>
                     <MenuItem>Sign Up</MenuItem>
@@ -163,8 +146,12 @@ function Header() {
                 ) : (
                   <MenuItem
                     onClick={(e) => {
-                      setUser({isLoggedIn: false,
-                        name: 'user',})
+                      setUserData({
+                        isLoggedIn: false,
+                        name: 'user',
+                        type: "",
+                        id: ""
+                      })
                       axiosInstance.post("logout/blacklist/", {
                         refresh_token: sessionStorage.getItem("refresh_token"),
                       });

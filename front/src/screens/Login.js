@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Flex,
   Box,
@@ -16,6 +16,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Col, Navbar, Row, Form } from "react-bootstrap";
 import axiosInstance from "../axios";
+import { Context } from "../ContextData";
 
 function Login() {
   const navigate = useNavigate();
@@ -23,7 +24,11 @@ function Login() {
     username: "",
     password: "",
   });
+
   const [formData, updateFormData] = useState(initialFormData);
+
+  const [setUserData] = useContext(Context);
+
   const handleChange = (e) => {
     updateFormData({
       ...formData,
@@ -52,15 +57,36 @@ function Login() {
             .then((res) => {
               if (res.data.type === 1) {
                 localStorage.setItem("wid", res.data.id);
-                localStorage.setItem('name',res.data.name)
+                localStorage.setItem('name',res.data.name);
+                localStorage.setItem('type',res.data.type);
+                setUserData({
+                  name: res.data.name,
+                  id: res.data.id,
+                  type: res.data.type,
+                  isLoggedIn: true
+                })
                 navigate("/owner");
               } else if (res.data.type === 2) {
                 localStorage.setItem('name',res.data.name)
                 localStorage.setItem("wid", res.data.id);
+                localStorage.setItem('type',res.data.type);
+                setUserData({
+                  name: res.data.name,
+                  id: res.data.id,
+                  type: res.data.type,
+                  isLoggedIn: true
+                })
                 navigate("/contractor");
               } else {
                 localStorage.setItem('name',res.data.name)
                 localStorage.setItem("wid", res.data.id);
+                localStorage.setItem('type',res.data.type);
+                setUserData({
+                  name: res.data.name,
+                  id: res.data.id,
+                  type: res.data.type,
+                  isLoggedIn: true
+                })
                 navigate("/worker");
               }
             })
