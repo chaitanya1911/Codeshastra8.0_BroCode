@@ -56,15 +56,14 @@ function Header() {
   }
 
   const LinkToContractor = [
-    { page: "Home", link: "/contractor/dashboard/home" },
+    { page: "Home", link: "/contractor/dashboard/" },
     { page: "Assign", link: "/contractor/dashboard/assign" },
     { page: "Violations", link: "/contractor/dashboard/violations" },
   ]
 
   const LinkToWorker = [
-    { page: "Home", link: "/contractor/dashboard/home" },
-    { page: "Assign", link: "/contractor/dashboard/assign" },
-    { page: "Violations", link: "/contractor/dashboard/violations" },
+    { page: "Home", link: "/contractor/dashboard/" },
+    { page: "Statistics", link: "/contractor/dashboard/statistics" },    
   ]
 
   $(function () {
