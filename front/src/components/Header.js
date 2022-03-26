@@ -20,7 +20,7 @@ import {
   useColorMode,
   Center,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 // import "../styles/styles.css";
@@ -84,6 +84,7 @@ function Header() {
       as="header"
       backdropFilter="saturate(180%) blur(5px)"
       w="100%"
+      style={{position: "sticky", top: 0}}
     >
       <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
         <IconButton
@@ -140,8 +141,8 @@ function Header() {
                 <MenuDivider />
                 {!userData.isLoggedIn ? (
                   <>
-                    <MenuItem>Sign In</MenuItem>
-                    <MenuItem>Sign Up</MenuItem>
+                    <Link to={'/login'}><MenuItem>Sign In</MenuItem></Link> 
+                    <Link to={'/signup'}><MenuItem>Sign Up</MenuItem></Link>  
                   </>
                 ) : (
                   <MenuItem
