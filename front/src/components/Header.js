@@ -32,7 +32,7 @@ function Header() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [userData, setUserData] = useContext(Context);
+  const [baseData, userData, setUserData] = useContext(Context);
 
   // const Links = ["Dashboard", "Projects", "Team", "SignUp", "Contact"];
   // const LinksTo = {
@@ -130,11 +130,11 @@ function Header() {
                 </Center>
                 <br />
                 <Center>
-                  {
-                    userData.isLoggedIn ? (
-                      <p>Hello {userData.name}!</p> 
-                    ) : ( <p>Hello User!</p> )
-                  }
+                  {userData.isLoggedIn ? (
+                    <p>Hello {userData.name}!</p>
+                  ) : (
+                    <p>Hello User!</p>
+                  )}
                 </Center>
                 <br />
                 <MenuDivider />
@@ -148,10 +148,10 @@ function Header() {
                     onClick={(e) => {
                       setUserData({
                         isLoggedIn: false,
-                        name: 'user',
+                        name: "user",
                         type: "",
-                        id: ""
-                      })
+                        id: "",
+                      });
                       axiosInstance.post("logout/blacklist/", {
                         refresh_token: sessionStorage.getItem("refresh_token"),
                       });
@@ -162,9 +162,7 @@ function Header() {
                   >
                     Logout
                   </MenuItem>
-
                 )}
-
               </MenuList>
             </Menu>
           </Stack>

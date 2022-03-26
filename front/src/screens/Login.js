@@ -27,7 +27,7 @@ function Login() {
 
   const [formData, updateFormData] = useState(initialFormData);
 
-  const [setUserData] = useContext(Context);
+  const [baseData, userData, setUserData] = useContext(Context);
 
   const handleChange = (e) => {
     updateFormData({
@@ -57,36 +57,39 @@ function Login() {
             .then((res) => {
               if (res.data.type === 1) {
                 localStorage.setItem("wid", res.data.id);
-                localStorage.setItem('name',res.data.name);
-                localStorage.setItem('type',res.data.type);
+                localStorage.setItem("name", res.data.name);
+                localStorage.setItem("type", res.data.type);
                 setUserData({
+                  ...userData,
                   name: res.data.name,
                   id: res.data.id,
                   type: res.data.type,
-                  isLoggedIn: true
-                })
+                  isLoggedIn: true,
+                });
                 navigate("/owner");
               } else if (res.data.type === 2) {
-                localStorage.setItem('name',res.data.name)
+                localStorage.setItem("name", res.data.name);
                 localStorage.setItem("wid", res.data.id);
-                localStorage.setItem('type',res.data.type);
+                localStorage.setItem("type", res.data.type);
                 setUserData({
+                  ...userData,
                   name: res.data.name,
                   id: res.data.id,
                   type: res.data.type,
-                  isLoggedIn: true
-                })
+                  isLoggedIn: true,
+                });
                 navigate("/contractor");
               } else {
-                localStorage.setItem('name',res.data.name)
+                localStorage.setItem("name", res.data.name);
                 localStorage.setItem("wid", res.data.id);
-                localStorage.setItem('type',res.data.type);
+                localStorage.setItem("type", res.data.type);
                 setUserData({
+                  ...userData,
                   name: res.data.name,
                   id: res.data.id,
                   type: res.data.type,
-                  isLoggedIn: true
-                })
+                  isLoggedIn: true,
+                });
                 navigate("/worker");
               }
             })
