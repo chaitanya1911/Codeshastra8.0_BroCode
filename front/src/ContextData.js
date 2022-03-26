@@ -16,7 +16,7 @@ export const DataProvider = (props) => {
     const baseData = {};
 
     return (
-        <Context.Provider value={[baseData]}>
+        <Context.Provider value={[baseData, userData, setUserData]}>
             {props.children}
         </Context.Provider>
     )
