@@ -22,6 +22,7 @@ import numpy as np
 import pytesseract
 import os
 import cv2
+import torch
 
 pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe' #Install from Pytess
 
@@ -126,7 +127,7 @@ def verifyotp(request):
 def createProj(request):
     if request.method == "POST":
         data= JSONParser().parse(request)['data']
-        
+        print(data)
         contract = Contractor.objects.get(id=data['contractor'])
         proj = Project.objects.create(name=data['name'],desc=data['desc'],location={'lats':data['lats'],'lng':data['long']},start=data['date'],contractor=contract)
         
@@ -137,10 +138,21 @@ def createProj(request):
             imgId=None
         proj.photo=imgId
         contract.occupied=True
-        
         contract.save()
+        proj = Project.objects.create(name=data['name'],desc=data['desc'],location={'lats':data['lats'],'lng':data['long']},start=data['date'],contractor=contract)
         proj.save()
         return JsonResponse("created",safe=False)  
+
+@csrf_exempt
+def vv(request):
+    model = torch.hub.load('ultralytics/yolov5', 'custom', 'yolov5/best.pt') 
+    im = 'C:/Users/Jainam/Desktop/trial.jpg'
+    results = model(im)
+    print(results)
+    a = results.pandas().xyxy[0]
+    print(a['name'].value_counts())
+    os.system('python yolov5/detect.py --source C:/Users/Jainam/Desktop/trial.jpg --weights yolov5/best.pt')
+    return JsonResponse("created",safe=False)  
 
 @csrf_exempt
 def ocr(request):
@@ -202,7 +214,6 @@ def getContractors(request):
         c=ContactSerializer(c,many=True).data
         return JsonResponse({'data':c},safe=False)  
 
-
 @csrf_exempt
 def getprojworkers(request,id):
     if request.method=="GET":
@@ -233,6 +244,9 @@ def getprojects(request):
         projects = Project.objects.all()
         projects = ProjectSerializer(projects,many=True).data
         return JsonResponse({'projects':projects},safe=False)
+
+  
+
 
   
 
