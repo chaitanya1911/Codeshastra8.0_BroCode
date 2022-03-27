@@ -14,6 +14,7 @@ import CreateNewProj from "./screens/CreateNewProj";
 import Footer from "./components/Footer";
 import AttendanceOCR from "./screens/AttendanceOCR";
 import ContractorViolation from "./screens/ContractorViolation";
+import ContractorAssign from "./screens/ContractorAssign";
 
 function App() {
   // const [User,setUser] = useState({
@@ -35,6 +36,11 @@ function App() {
             path="/worker/dashboard"
             exact
             element={<WorkerDashboard />}
+          ></Route>
+          <Route
+            path="/contractor/assign"
+            exact
+            element={<ContractorAssign />}
           ></Route>
           <Route
             path="/contractor/violation"
