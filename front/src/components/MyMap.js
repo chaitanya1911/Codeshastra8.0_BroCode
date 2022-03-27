@@ -17,7 +17,7 @@ const myIcon = L.icon({
   iconSize: [40, 50],
 });
 
-function MyMap() {
+function MyMap({lat,lng,des}) {
   return (
     <MapContainer
       style={{ height: "400px", width: "500px" }}
@@ -28,14 +28,9 @@ function MyMap() {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-
-      {center.map((mark, index) => {
-        return (
-          <Marker position={mark} icon={myIcon}>
-            <Popup>{desc[index]}</Popup>
+          <Marker position={[lat,lng]} icon={myIcon}>
+            <Popup>{des}</Popup>
           </Marker>
-        );
-      })}
     </MapContainer>
   );
 }

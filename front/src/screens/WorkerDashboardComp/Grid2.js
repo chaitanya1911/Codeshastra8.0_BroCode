@@ -43,7 +43,7 @@ const Grid1 = () => {
                     <GridItem w="100%">
                         <Flex flexDirection={'column'}>
                             <Text fontSize={'4xl'} fontWeight={'bold'}>
-                                20 hours
+                                100 hours
                             </Text>
                             <Box fontSize={'sm'}>
                                 Description for the number of hours worked.

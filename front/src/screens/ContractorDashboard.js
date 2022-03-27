@@ -46,7 +46,7 @@ const Dashboard = () => {
           </GridItem> */}
           <GridItem>
             <Center mb={3}><Heading fontWeight={'bold'}>Project Location</Heading></Center>
-            <MyMap />
+            <MyMap lat={19.228825} lng={72.854118} des={'Lodha'} />
           </GridItem>
         </Grid>
       </Box>

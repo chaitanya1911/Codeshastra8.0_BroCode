@@ -79,6 +79,7 @@ export default function SignUp() {
   };
   function handleGoogleResponse(res) {
     let data = res.profileObj;
+    console.log(data)
     updateFormData((prev) => ({
       ...prev,
       email: data.email,

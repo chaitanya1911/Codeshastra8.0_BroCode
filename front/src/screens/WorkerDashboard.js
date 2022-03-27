@@ -29,7 +29,7 @@ const WorkerDashboard = () => {
           </GridItem>
           <GridItem>
             <Center mb={3}><Heading fontWeight={'bold'}>Project Location</Heading></Center>
-            <MyMap />
+            <MyMap lat={28.598316} lng={83.931061} des={'Kajaria'} />
           </GridItem>
         </Grid>
       </Box>
