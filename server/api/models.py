@@ -20,6 +20,7 @@ class Project(models.Model):
     name= models.CharField(max_length=150)
     desc = models.TextField()
     location = models.JSONField()
+    photo = photo = models.CharField(max_length=300,null=True,blank=True)
     start = models.DateField()
     end = models.DateField(null=True,blank=True)
     def __str__(self):

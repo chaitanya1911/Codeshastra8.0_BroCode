@@ -15,7 +15,7 @@ import cloudinary.search
 from django.core.mail import send_mail,EmailMultiAlternatives
 from django.template.loader import get_template
 
-from .serializers import ContactSerializer
+from .serializers import ContactSerializer, ProjectSerializer,WorkerSerializer
 
 from . models import Aadhar, Contractor,Project, Worker,Owner
 
@@ -140,6 +140,35 @@ def getContractors(request):
         c=ContactSerializer(c,many=True).data
         return JsonResponse({'data':c},safe=False)  
 
+def getprojworkers(request,id):
+    if request.method=="GET":
+        contractor = Contractor.objects.get(id=int(id))
+        workers = Worker.objects.filter(Contractor=contractor)
+        free = Worker.objects.all().exclude(Contractor=contractor)
+        workers = WorkerSerializer(workers,many=True).data
+        free = WorkerSerializer(free,many=True).data
+        return JsonResponse({'workers':workers,'free':free},safe=False)
+
+@csrf_exempt
+def assignworker(request,id=0):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)['data']
+        contractor = Contractor.objects.get(id=data['cid'])
+        wo = Worker.objects.get(id=data['wid'])
+        wo.Contractor = contractor
+        wo.save()
+        return JsonResponse("added",safe=False)
+    elif request.method=="DELETE":
+        worker = Worker.objects.get(id=id)
+        worker.Contractor = None
+        worker.save()
+        return JsonResponse("Deleted",safe=False) 
+
+def getprojects(request):
+    if request.method == "GET":
+        projects = Project.objects.all()
+        projects = ProjectSerializer(projects,many=True).data
+        return JsonResponse({'projects':projects},safe=False)
 
   
 

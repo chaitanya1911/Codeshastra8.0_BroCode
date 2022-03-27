@@ -9,4 +9,8 @@ urlpatterns = [
     path('api/createproj',views.createProj),
     path('api/getContract',views.getContractors),
     path('api/ocr',views.ocr),
+    path('api/getprojworkers/<int:id>',views.getprojworkers),
+    path('api/assignworker',views.assignworker),
+    path('api/assignworker/<int:id>',views.assignworker),
+    path('api/getprojects',views.getprojects)
 ]
