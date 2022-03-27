@@ -17,6 +17,8 @@ import { BsPerson } from 'react-icons/bs';
 import { AiFillAlert } from "react-icons/ai";
 import { GoLocation } from 'react-icons/go';
 import React from 'react'
+import { dash } from '../dash';
+import { data } from 'jquery';
 
 
 const Grid1 = () => {
@@ -63,15 +65,15 @@ const Grid1 = () => {
                 <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
                     <StatsCard
                         title={'Total Attendance'}
-                        stat={'600/650 days'}
+                        stat={`${dash.attendance.present}/${dash.attendance.total} days`}
                         icon={<BsPerson size={'3em'} />}
                     />
                     <StatsCard
                         title={'Violations'}
                         stat={
                             <>
-                                <Text>Today's Violation: 5</Text>
-                                <Text>Total Violations: 7</Text>
+                                <Text>Today's Violation: {dash.vio.today}</Text>
+                                <Text>Total Violations: {dash.vio.total}</Text>
                             </>
                         }
                         size={'md'}
@@ -81,8 +83,8 @@ const Grid1 = () => {
                         title={'Geo-Location'}
                         stat={
                             <>
-                                <Text>Lat: </Text>
-                                <Text>Long: </Text>
+                                <Text>Lat:{dash.geo.lat} </Text>
+                                <Text>Long:{dash.geo.lng} </Text>
                             </>
                         }
                         size={'md'}

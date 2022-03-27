@@ -47,11 +47,14 @@ function Header() {
       { page: "Attendance", link: "/contractor/dashboard/attendance" },
       { page: "Assign", link: "/contractor/dashboard/assign" },
       { page: "Violations", link: "/contractor/dashboard/violations" },
+      { page: "OCR", link: "/contractor/dashboard/ocr" },
     ],
     3: [
-      { page: "Home", link: "/contractor/dashboard/home" },
-      { page: "Assign", link: "/contractor/dashboard/assign" },
-      { page: "Violations", link: "/contractor/dashboard/violations" },
+      { page: "Home", link: "/contractor/dashboard/" },
+      // { page: "Home", link: "/contractor/dashboard/home" },
+      // { page: "Assign", link: "/contractor/dashboard/assign" },
+      // { page: "Violations", link: "/contractor/dashboard/violations" },
+      { page: "OCR", link: "/contractor/dashboard/ocr" },
     ],
   };
 
@@ -63,7 +66,7 @@ function Header() {
 
   const LinkToWorker = [
     { page: "Home", link: "/contractor/dashboard/" },
-    { page: "Statistics", link: "/contractor/dashboard/statistics" },
+    // { page: "Statistics", link: "/contractor/dashboard/statistics" },
   ];
 
   $(function () {

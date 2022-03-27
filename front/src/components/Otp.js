@@ -16,7 +16,7 @@ import {
 import {Form} from 'react-bootstrap'
 import axiosInstance from '../axios';
 import { useNavigate } from 'react-router-dom';
-function Otp() {
+function Otp({verified}) {
     const navigate = useNavigate()
     const initialFormData = Object.freeze({
         number: "",
@@ -55,13 +55,15 @@ function Otp() {
             axiosInstance
               .post("/api/verifyotp", {
                   data:{
+                    id:localStorage.getItem('wid'),
                 email:formData.email,
                   number:formData.number,    
                   otp:formData.otp}
               })
               .then(res=>{
                   if(res.data.done){
-                    navigate('/')
+                    setShow(false)
+                    window.location.reload()
                   }
                   else{
                     alert("Wrong Otp")
@@ -74,14 +76,15 @@ function Otp() {
         <Form onSubmit={handleSubmit}>
               <FormControl id="email">
               {!show && <>
-                <FormLabel>Aadhar Number:</FormLabel>
-                <Input
+                <FormLabel>Aadhar Number: {verified?"Verified":"Not Verified"}</FormLabel>
+                {!verified?<Input
                   name="number"
                   value={formData.number}
                   onChange={handleChange}
                   type="text"
                   required
-                /></>}
+                />:<></>}
+                </>}
                 {show &&<><FormLabel>OTP:</FormLabel>
                 <Input
                   name="otp"
@@ -100,7 +103,7 @@ function Otp() {
                 >
                   Verify
                 </Button>}
-                {!show && <Button
+                {!show && !verified && <Button
                 style={{marginTop:"10px"}}
                   bg={"blue.400"}
                   color={"white"}
@@ -111,6 +114,16 @@ function Otp() {
                 >
                   Generate OTP
                 </Button>}
+                <Button
+                style={{marginLeft:"10px", marginTop:"10px"}}
+                  bg={"blue.400"}
+                  color={"white"}
+                  _hover={{
+                    bg: "blue.500",
+                  }}
+                >
+                  Update
+                </Button>
               </FormControl>
         </Form>    
     </div>

@@ -13,5 +13,6 @@ urlpatterns = [
     path('api/assignworker',views.assignworker),
     path('api/assignworker/<int:id>',views.assignworker),
     path('api/getprojects',views.getprojects),
-     path('api/vv',views.vv)
+    path('api/vv',views.vv),
+    path('api/getWProf/<int:id>',views.getWProf),
 ]
