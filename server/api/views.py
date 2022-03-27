@@ -161,53 +161,78 @@ def vv(request):
 
 @csrf_exempt
 def ocr(request):
-    # if request.method == "GET":
-    #     img = cv2.imread('../server/api/images/ocr1.JPG')
-    #     orb = cv2.ORB_create(500)
-    #     kp1,des1 = orb.detectAndCompute(img,None)
-    #     impkp1 = cv2.drawKeypoints(img,kp1,None)
-    #     per=25
-    #     img2 = cv2.imread('../server/api/images/ocr3.JPG')
-    #     img2 = cv2.resize(img2,(418,365))
-    #     kp2,des2 = orb.detectAndCompute(img2,None)
-    #     bf = cv2.BFMatcher(cv2.NORM_HAMMING)
-    #     matches = bf.match(des2,des1)
-    #     matches = list(matches)
-    #     matches.sort(key=lambda x: x.distance)
-    #     good = matches[:int(len(matches)*(per/100))]
-    #     imgMatch = cv2.drawMatches(img2,kp2,img,kp1,good[:150],None,flags=2)
-    #     srcPoints = np.float32([kp2[m.queryIdx].pt for m in good]).reshape(-1,1,2)
-    #     dstPoints = np.float32([kp1[m.trainIdx].pt for m in good]).reshape(-1,1,2)
-    #     M,_ = cv2.findHomography(srcPoints,dstPoints,cv2.RANSAC,5.0)
-    #     imgScan = cv2.warpPerspective(img2,M,(465,318))
-    #     roi = [[(140, 30), (300, 80), 'text', 'Date'], 
-    #         [(20, 100), (160, 250), 'text', 'Name'], 
-    #         [(170, 100), (280, 250), 'text', 'Start Time'], 
-    #         [(280, 100), (400, 250), 'text', 'Exit Time']]
+    if request.method == "GET":
+        img = cv2.imread('../server/api/images/ocr1.JPG')
+        orb = cv2.ORB_create(500)
+        kp1,des1 = orb.detectAndCompute(img,None)
+        impkp1 = cv2.drawKeypoints(img,kp1,None)
+        per=25
+        img2 = cv2.imread('../server/api/images/ocr3.JPG')
+        img2 = cv2.resize(img2,(418,365))
+        kp2,des2 = orb.detectAndCompute(img2,None)
+        bf = cv2.BFMatcher(cv2.NORM_HAMMING)
+        matches = bf.match(des2,des1)
+        matches = list(matches)
+        matches.sort(key=lambda x: x.distance)
+        good = matches[:int(len(matches)*(per/100))]
+        imgMatch = cv2.drawMatches(img2,kp2,img,kp1,good[:150],None,flags=2)
+        srcPoints = np.float32([kp2[m.queryIdx].pt for m in good]).reshape(-1,1,2)
+        dstPoints = np.float32([kp1[m.trainIdx].pt for m in good]).reshape(-1,1,2)
+        M,_ = cv2.findHomography(srcPoints,dstPoints,cv2.RANSAC,5.0)
+        imgScan = cv2.warpPerspective(img2,M,(465,318))
+        roi = [[(140, 30), (300, 80), 'text', 'Date'], 
+            [(20, 100), (160, 250), 'text', 'Name'], 
+            [(170, 100), (280, 250), 'text', 'Start Time'], 
+            [(280, 100), (400, 250), 'text', 'Exit Time']]
 
-    #     imgShow = imgScan.copy()
-    #     imgMask = np.zeros_like(imgShow)
-    #     dt = []
-    #     nm=[]
-    #     start = []
-    #     end = []
-    #     for x,r in enumerate(roi):
-    #         cv2.rectangle(imgMask,((r[0][0]),r[0][1]),((r[1][0]),r[1][1]),(0,255,0),cv2.FILLED)
-    #         imgShow = cv2.addWeighted(imgShow,0.99,imgMask,0.6,0)
-    #         imgCrop = imgScan[r[0][1]:r[1][1],r[0][0]:r[1][0]]
-    #         if r[3]=='Start Time':
-    #             start.append(pytesseract.image_to_string(imgCrop))
-    #         elif r[3]=='Exit Time':
-    #             end.append(pytesseract.image_to_string(imgCrop))
-    #         elif r[3]=='Name':
-    #             nm.append(pytesseract.image_to_string(imgCrop))
-    #         else:
-    #             dt.append(pytesseract.image_to_string(imgCrop))
+        imgShow = imgScan.copy()
+        imgMask = np.zeros_like(imgShow)
+        dt = []
+        nm=[]
+        start = []
+        end = []
+        for x,r in enumerate(roi):
+            cv2.rectangle(imgMask,((r[0][0]),r[0][1]),((r[1][0]),r[1][1]),(0,255,0),cv2.FILLED)
+            imgShow = cv2.addWeighted(imgShow,0.99,imgMask,0.6,0)
+            imgCrop = imgScan[r[0][1]:r[1][1],r[0][0]:r[1][0]]
+            if r[3]=='Start Time':
+                start.append(pytesseract.image_to_string(imgCrop))
+            elif r[3]=='Exit Time':
+                end.append(pytesseract.image_to_string(imgCrop))
+            elif r[3]=='Name':
+                nm.append(pytesseract.image_to_string(imgCrop))
+            else:
+                dt.append(pytesseract.image_to_string(imgCrop))
+            
+
+        nam = nm[0].split('\n')
+        star = start[0].split('\n')
+        for i in star:
+            if len(i)<4: #i=='':
+                i = 'NA'
+        en = end[0].split('\n')
+        for i in en:
+            if len(i)<4: #i=='':
+                i = 'NA'
+        dat = dt[0][7:15]
         
-    #     print(f'Names : {nm}')
-    #     print(f'Start : {start}')
-    #     print(f'Exit : {end}')
-    #     print(f'Date : {dt}')
+        
+        # print(f'Names : {nm}')
+        # print(f'Date : {dt}')
+        # print(f'Start : {start}')
+        # print(f'End : {end}')
+        
+        naam=[]
+        for x in range(0,len(nam)):
+            if(nam[x]!=""):
+                if(nam[x].split('"')[1]):
+                    print(nam[x].split('"'))
+                    
+        print(f'Names : {naam}')
+        print(f'Start : {star}')
+        print(f'Exit : {en}')
+        print(f'Date : {dat}')
+        print(naam[0])
 
 
         # [
@@ -224,8 +249,8 @@ def ocr(request):
         #     {'name':'Alankrit','start':'11:00','end':'20:00'},
 
         # ],'Date':'27-03-2022'
-        time.sleep(3)
-        return JsonResponse({'data':[['ck','12:00','12:00'],['ck','12:00','12:00'],['ck','12:00','12:00'],['ck','12:00','12:00']]},safe=False) 
+        # time.sleep(3)
+        return JsonResponse({'data':[[naam[0],star[1],en[1]],[naam[1],star[2],en[2]],[naam[2],star[3],en[3]],[naam[3],star[4],en[4]],[naam[4],star[5],en[5]]]},safe=False) 
 @csrf_exempt
 def getContractors(request):
     if request.method == "GET":

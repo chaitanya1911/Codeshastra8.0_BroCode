@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { BiUpload } from "react-icons/bi";
 import axiosInstance from "../axios";
-import { MDBDataTable } from "mdbreact";
 import {
   Box,
   Flex,

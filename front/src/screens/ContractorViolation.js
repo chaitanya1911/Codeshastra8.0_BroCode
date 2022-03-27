@@ -18,6 +18,10 @@ import {
     Grid,
     GridItem
 } from '@chakra-ui/react';
+import vid from "../images/trial.mp4";
+import vid1 from "../images/trial_res.mp4";
+import a from "../images/1a.jpg";
+
 import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
 import { FiShoppingCart } from 'react-icons/fi';
 
@@ -60,7 +64,7 @@ const ContractorViolation = () => {
 
                     <Center>
                         <Text href={'#'} display={'flex'} fontSize={'xl'}>
-                            Date: xyz
+                            Date: 27-03-22
                         </Text>
                     </Center>
                 </Box>
@@ -71,28 +75,19 @@ const ContractorViolation = () => {
 
 
     return (
+        <>
+        <div style={{"display": "flex", "justifyContent": "center", marginTop: '50px'}}>
+            <video id="myVideo" src={vid} width={520} height={240} autoPlay muted></video>
+            {/* <video id="myVideo2" src={vid1} width={320} height={240}  muted></video> */}
+        </div>
         <Grid templateColumns={'repeat(3, 1fr)'} my={10} gap={10}>
             <GridItem>
                 <Center>
-                    <Comp />
-                </Center>
-            </GridItem>
-            <GridItem>
-                <Center>
-                    <Comp />
-                </Center>
-            </GridItem>
-            <GridItem>
-                <Center>
-                    <Comp />
-                </Center>
-            </GridItem>
-            <GridItem>
-                <Center>
-                    <Comp />
+                    <Comp url={a} />
                 </Center>
             </GridItem>
         </Grid>
+        </>
     )
 }
 
