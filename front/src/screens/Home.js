@@ -28,8 +28,7 @@ const HomeComp = () => (
 				fontWeight={700}
 				lineHeight={1.2}
 				fontSize={useBreakpointValue({ base: '3xl', md: '4xl' })}>
-				Lorem ipsum dolor sit amet consectetur adipiscing elit sed do
-				eiusmod tempor
+				A Simple, Smart Solution for management of Contractors and Workers for monitoring efficient working of parties
 			</Text>
 			<Stack direction={'row'}>
 				<Link to={'/login'}>
