@@ -4,7 +4,7 @@ import Projects from "./screens/Projects";
 import SignUp from "./screens/SignUp";
 import Header from "./components/Header";
 import Home from "./screens/Home";
-import Owner from "./screens/Owner";
+// import Owner from "./screens/Owner";
 import ErrorPage from "./screens/ErrorPage";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 // import Dashboard1 from "./screens/Dashboard1";
@@ -13,7 +13,8 @@ import WorkerDashboard from "./screens/WorkerDashboard";
 import CreateNewProj from "./screens/CreateNewProj";
 import Footer from "./components/Footer";
 import AttendanceOCR from "./screens/AttendanceOCR";
-import OCR from "./screens/OCR";
+import ContractorViolation from "./screens/ContractorViolation";
+import ContractorAssign from "./screens/ContractorAssign";
 
 function App() {
   // const [User,setUser] = useState({
@@ -29,13 +30,22 @@ function App() {
           <Route path="/signup" exact element={<SignUp />} />
 
           <Route path="/owner/createNewProj" exact element={<CreateNewProj />} />
-          <Route path="/owner/project" exact element={<Projects />} />
-          <Route path="/owner" exact element={<Owner />} />
-          <Route path="/contractor/dashboard/ocr" exact element={<OCR></OCR>} />
+          <Route path="/owner/dashboard" exact element={<Projects />} />
+          {/* <Route path="/owner" exact element={<Owner />} /> */}
           <Route
             path="/worker/dashboard"
             exact
             element={<WorkerDashboard />}
+          ></Route>
+          <Route
+            path="/contractor/assign"
+            exact
+            element={<ContractorAssign />}
+          ></Route>
+          <Route
+            path="/contractor/violation"
+            exact
+            element={<ContractorViolation />}
           ></Route>
           <Route
             path="/contractor/dashboard"
