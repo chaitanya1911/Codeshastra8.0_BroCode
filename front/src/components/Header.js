@@ -50,11 +50,11 @@ function Header() {
       { page: "OCR", link: "/contractor/dashboard/ocr" },
     ],
     3: [
-      { page: "Home", link: "/contractor/dashboard/" },
+      { page: "Home", link: "/worker/dashboard/" },
       // { page: "Home", link: "/contractor/dashboard/home" },
       // { page: "Assign", link: "/contractor/dashboard/assign" },
       // { page: "Violations", link: "/contractor/dashboard/violations" },
-      { page: "OCR", link: "/contractor/dashboard/ocr" },
+      // { page: "OCR", link: "/contractor/dashboard/ocr" },
     ],
   };
 
