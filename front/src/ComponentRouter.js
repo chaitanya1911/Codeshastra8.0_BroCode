@@ -16,6 +16,7 @@ import AttendanceOCR from "./screens/AttendanceOCR";
 import ContractorViolation from "./screens/ContractorViolation";
 import ContractorAssign from "./screens/ContractorAssign";
 import OCR from "./screens/OCR";
+import EditProfile from './screens/EditProfile';
 
 function App() {
   // const [User,setUser] = useState({
@@ -37,6 +38,11 @@ function App() {
             path="/worker/dashboard"
             exact
             element={<WorkerDashboard />}
+          ></Route>
+          <Route
+            path="/worker/editprof"
+            exact
+            element={<EditProfile />}
           ></Route>
           <Route
             path="/contractor/assign"

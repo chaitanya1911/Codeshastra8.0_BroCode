@@ -43,11 +43,11 @@ function Header() {
   const LinkNav = {
     1: [],
     2: [
-      { page: "Home", link: "/contractor/dashboard/home" },
-      { page: "Attendance", link: "/contractor/dashboard/attendance" },
-      { page: "Assign", link: "/contractor/dashboard/assign" },
-      { page: "Violations", link: "/contractor/dashboard/violations" },
-      { page: "OCR", link: "/contractor/dashboard/ocr" },
+      { page: "Home", link: "/contractor/dashboard/" },
+      // { page: "Attendance", link: "/contractor/dashboard/attendance" },
+      { page: "Assign", link: "/contractor/assign/" },
+      { page: "Violations", link: "/contractor/violation/" },
+      { page: "OCR", link: "/contractor/dashboard/ocr/" },
     ],
     3: [
       { page: "Home", link: "/worker/dashboard/" },
@@ -88,7 +88,7 @@ function Header() {
     });
   });
 
-  const NavLink = ({ children }) => (
+  const NavLink = ({ children, link }) => (
     <Link
       px={2}
       py={1}
@@ -97,7 +97,7 @@ function Header() {
         textDecoration: "none",
         bg: useColorModeValue("gray.200", "gray.700"),
       }}
-      to={children}
+      to={link}
       // to={`/`}
     >
       {children}
@@ -127,8 +127,8 @@ function Header() {
           <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
             {LinkNav[userData.type] &&
               LinkNav[userData.type].map((link, key) => (
-                <NavLink key={key} children={link.link}>
-                  {link.page}
+                <NavLink key={key} children={link.page} link={link.link}>
+                  {/* {link.page} */}
                 </NavLink>
               ))}
           </HStack>
@@ -175,7 +175,7 @@ function Header() {
                   </>
                 ) : (
                   <>
-                    <MenuItem>Edit Profile</MenuItem>
+                    <MenuItem><Link to={'/worker/editprof'}>Edit Profile</Link></MenuItem>
                     <MenuItem
                       onClick={(e) => {
                         setUserData({
