@@ -23,7 +23,6 @@ import numpy as np
 import pytesseract
 import os
 import cv2
-import torch
 
 pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe' #Install from Pytess
 
@@ -50,7 +49,7 @@ def login(request):
         photo=""
         email=""
         if userr.is_superuser ==True:
-            ow  =Owner.objects.get(user=userr)
+            ow =Owner.objects.get(user=userr)
             idd = ow.id
             photo =ow.photo
             email = ow.email 
