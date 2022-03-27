@@ -51,7 +51,7 @@ function Projects() {
         {
           Projects !== undefined && Projects.map((project) => {
             return (<Box>
-              <Card></Card>
+              <Card data={project}></Card>
             </Box>)
           })
         }

@@ -21,9 +21,9 @@ import {
 import { Container } from 'react-bootstrap';
 
 
-const Card = () => {
+const Card = ({data}) => {
 
-  const CardComp1 = () => (
+  const CardComp1 = ({data}) => (
     <Stack
       borderWidth="1px"
       borderRadius="lg"
@@ -50,44 +50,19 @@ const Card = () => {
         p={1}
         pt={2}>
         <Heading fontSize={'2xl'} fontFamily={'body'}>
-          Lindsey James
+          {console.log(data)}
         </Heading>
         <Text fontWeight={600} color={'gray.500'} size="sm" mb={4}>
-          @lindsey_jam3s
+          {data.name}
         </Text>
         <Text
           textAlign={'center'}
           color={useColorModeValue('gray.700', 'gray.400')}
           px={3}>
-          Actress, musician, songwriter and artist. PM for work inquires or
-          <Link href={'#'} color={'blue.400'}>
-            #tag
-          </Link>
-          me in your posts
+          {data.desc}
+          
         </Text>
-        <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
-          <Badge
-            px={2}
-            py={1}
-            bg={useColorModeValue('gray.50', 'gray.800')}
-            fontWeight={'400'}>
-            #art
-          </Badge>
-          <Badge
-            px={2}
-            py={1}
-            bg={useColorModeValue('gray.50', 'gray.800')}
-            fontWeight={'400'}>
-            #photography
-          </Badge>
-          <Badge
-            px={2}
-            py={1}
-            bg={useColorModeValue('gray.50', 'gray.800')}
-            fontWeight={'400'}>
-            #music
-          </Badge>
-        </Stack>
+      
 
         <Stack
           width={'100%'}
@@ -127,7 +102,7 @@ const Card = () => {
     </Stack>
   )
 
-  const CardComp = () => (
+  const CardComp = ({data}) => (
     <HStack
       border={'1px'} borderColor={'grey'} borderRadius={'lg'}
       bg={useColorModeValue("gray.100", "gray.900")}
@@ -142,8 +117,8 @@ const Card = () => {
           // borderColor={'grey'}
           // border={'1px'}
           src={
-            "https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-          }
+            data.photo
+           }
         />
       </Flex>
       <Stack
@@ -155,10 +130,10 @@ const Card = () => {
         pt={2}
       >
         <Heading fontSize={"xl"} fontFamily={"body"}>
-          Name
+        {data.name}
         </Heading>
         <Text fontWeight={600} color={"gray.500"} size="sm" mb={4} fontSize={'sm'}>
-          @lindsey_jam3s
+        {data.email}
         </Text>
         <Text
           textAlign={"center"}
@@ -166,34 +141,9 @@ const Card = () => {
           px={1}
           fontSize={'sm'}
         >
-          Actress, musician, songwriter and artist. PM for work inquires or me in your posts
+  {data.desc}
         </Text>
-        <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-          <Badge
-            px={2}
-            py={1}
-            bg={useColorModeValue("gray.50", "gray.800")}
-            fontWeight={"400"}
-          >
-            #art
-          </Badge>
-          <Badge
-            px={2}
-            py={1}
-            bg={useColorModeValue("gray.50", "gray.800")}
-            fontWeight={"400"}
-          >
-            #photography
-          </Badge>
-          <Badge
-            px={2}
-            py={1}
-            bg={useColorModeValue("gray.50", "gray.800")}
-            fontWeight={"400"}
-          >
-            #music
-          </Badge>
-        </Stack>
+      
 
         <Stack
           width={"100%"}
@@ -228,7 +178,7 @@ const Card = () => {
 
   return (
     <>
-      <CardComp />
+      <CardComp data={data} />
     </>
 
   )
