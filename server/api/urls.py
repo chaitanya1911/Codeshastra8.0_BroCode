@@ -12,5 +12,6 @@ urlpatterns = [
     path('api/getprojworkers/<int:id>',views.getprojworkers),
     path('api/assignworker',views.assignworker),
     path('api/assignworker/<int:id>',views.assignworker),
-    path('api/getprojects',views.getprojects)
+    path('api/getprojects',views.getprojects),
+    path('api/getWProf/<int:id>',views.getWProf),
 ]

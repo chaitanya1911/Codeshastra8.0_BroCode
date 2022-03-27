@@ -119,6 +119,10 @@ def verifyotp(request):
             # userr = User.objects.get(email=data['email'])
             ad.registered = True
             ad.save()
+            contract = Worker.objects.get(id=data['id'])
+            contract.verified = True
+            contract.aadhar = data['number']
+            contract.save()
             return JsonResponse({'done':1},safe=False)
         else:    
             return JsonResponse({'done':0},safe=False)
@@ -248,6 +252,12 @@ def getprojects(request):
         projects = Project.objects.all()
         projects = ProjectSerializer(projects,many=True).data
         return JsonResponse({'projects':projects},safe=False)
+
+def getWProf(request,id):
+    if request.method=="GET":
+        worker = Worker.objects.filter(id=int(id))
+        worker = WorkerSerializer(worker,many=True).data
+        return JsonResponse({'worker':worker[0]},safe=False)         
 
   
 

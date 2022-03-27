@@ -59,6 +59,9 @@ function Login() {
                 localStorage.setItem("wid", res.data.id);
                 localStorage.setItem("name", res.data.name);
                 localStorage.setItem("type", res.data.type);
+                localStorage.setItem('isLoggedIn',true)
+                localStorage.setItem("email", res.data.email);
+                localStorage.setItem("photo", res.data.photo);
                 setUserData({
                   ...userData,
                   name: res.data.name,
@@ -71,6 +74,9 @@ function Login() {
                 localStorage.setItem("name", res.data.name);
                 localStorage.setItem("wid", res.data.id);
                 localStorage.setItem("type", res.data.type);
+                localStorage.setItem('isLoggedIn',true)
+                localStorage.setItem("email", res.data.email);
+                localStorage.setItem("photo", res.data.photo);
                 setUserData({
                   ...userData,
                   name: res.data.name,
@@ -85,6 +91,7 @@ function Login() {
                 localStorage.setItem("type", res.data.type);
                 localStorage.setItem("email", res.data.email);
                 localStorage.setItem("photo", res.data.photo);
+                localStorage.setItem('isLoggedIn',true)
                 setUserData({
                   ...userData,
                   name: res.data.name,

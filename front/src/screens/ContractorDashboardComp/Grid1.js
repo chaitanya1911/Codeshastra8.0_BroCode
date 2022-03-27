@@ -82,7 +82,7 @@ const Grid1 = () => {
                 <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
                     <StatsCard
                         title={'Attendance'}
-                        stat={'600/650'}
+                        stat={'60/65'}
                         icon={<BsPerson size={'3em'} />}
                     />
                     <StatsCard
@@ -100,8 +100,8 @@ const Grid1 = () => {
                         title={'Geo-Location'}
                         stat={
                             <>
-                                <Text>Lat: </Text>
-                                <Text>Long: </Text>
+                                <Text>Lat: 12.120640 </Text>
+                                <Text>Long:91.68570 </Text>
                             </>
                         }
                         size={'md'}
