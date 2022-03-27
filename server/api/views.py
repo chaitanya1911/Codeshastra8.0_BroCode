@@ -126,11 +126,19 @@ def verifyotp(request):
 def createProj(request):
     if request.method == "POST":
         data= JSONParser().parse(request)['data']
-        print(data)
+        
         contract = Contractor.objects.get(id=data['contractor'])
-        contract.occupied=True
-        contract.save()
         proj = Project.objects.create(name=data['name'],desc=data['desc'],location={'lats':data['lats'],'lng':data['long']},start=data['date'],contractor=contract)
+        
+        try:
+            imgU=cloudinary.uploader.upload(data['photo'],folder='codeshastra/projects/${0}'.format(proj.id),invalidate_caches=True,overwrite=True,resource_type='image')
+            imgId=imgU['url']
+        except:
+            imgId=None
+        proj.photo=imgId
+        contract.occupied=True
+        
+        contract.save()
         proj.save()
         return JsonResponse("created",safe=False)  
 
@@ -194,6 +202,8 @@ def getContractors(request):
         c=ContactSerializer(c,many=True).data
         return JsonResponse({'data':c},safe=False)  
 
+
+@csrf_exempt
 def getprojworkers(request,id):
     if request.method=="GET":
         contractor = Contractor.objects.get(id=int(id))
