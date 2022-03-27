@@ -11,6 +11,7 @@ from rest_framework.parsers import JSONParser
 from django.contrib.auth.models import User,auth
 from random import randint
 import cloudinary
+import time
 import cloudinary.search
 from django.core.mail import send_mail,EmailMultiAlternatives
 from django.template.loader import get_template
@@ -144,57 +145,71 @@ def createProj(request):
 
 @csrf_exempt
 def ocr(request):
-    if request.method == "GET":
-        img = cv2.imread('../server/api/images/ocr1.JPG')
-        orb = cv2.ORB_create(500)
-        kp1,des1 = orb.detectAndCompute(img,None)
-        impkp1 = cv2.drawKeypoints(img,kp1,None)
-        per=25
-        img2 = cv2.imread('../server/api/images/ocr3.JPG')
-        img2 = cv2.resize(img2,(418,365))
-        kp2,des2 = orb.detectAndCompute(img2,None)
-        bf = cv2.BFMatcher(cv2.NORM_HAMMING)
-        matches = bf.match(des2,des1)
-        matches = list(matches)
-        matches.sort(key=lambda x: x.distance)
-        good = matches[:int(len(matches)*(per/100))]
-        imgMatch = cv2.drawMatches(img2,kp2,img,kp1,good[:150],None,flags=2)
-        srcPoints = np.float32([kp2[m.queryIdx].pt for m in good]).reshape(-1,1,2)
-        dstPoints = np.float32([kp1[m.trainIdx].pt for m in good]).reshape(-1,1,2)
-        M,_ = cv2.findHomography(srcPoints,dstPoints,cv2.RANSAC,5.0)
-        imgScan = cv2.warpPerspective(img2,M,(465,318))
-        roi = [[(140, 30), (300, 80), 'text', 'Date'], 
-            [(20, 100), (160, 250), 'text', 'Name'], 
-            [(170, 100), (280, 250), 'text', 'Start Time'], 
-            [(280, 100), (400, 250), 'text', 'Exit Time']]
+    # if request.method == "GET":
+    #     img = cv2.imread('../server/api/images/ocr1.JPG')
+    #     orb = cv2.ORB_create(500)
+    #     kp1,des1 = orb.detectAndCompute(img,None)
+    #     impkp1 = cv2.drawKeypoints(img,kp1,None)
+    #     per=25
+    #     img2 = cv2.imread('../server/api/images/ocr3.JPG')
+    #     img2 = cv2.resize(img2,(418,365))
+    #     kp2,des2 = orb.detectAndCompute(img2,None)
+    #     bf = cv2.BFMatcher(cv2.NORM_HAMMING)
+    #     matches = bf.match(des2,des1)
+    #     matches = list(matches)
+    #     matches.sort(key=lambda x: x.distance)
+    #     good = matches[:int(len(matches)*(per/100))]
+    #     imgMatch = cv2.drawMatches(img2,kp2,img,kp1,good[:150],None,flags=2)
+    #     srcPoints = np.float32([kp2[m.queryIdx].pt for m in good]).reshape(-1,1,2)
+    #     dstPoints = np.float32([kp1[m.trainIdx].pt for m in good]).reshape(-1,1,2)
+    #     M,_ = cv2.findHomography(srcPoints,dstPoints,cv2.RANSAC,5.0)
+    #     imgScan = cv2.warpPerspective(img2,M,(465,318))
+    #     roi = [[(140, 30), (300, 80), 'text', 'Date'], 
+    #         [(20, 100), (160, 250), 'text', 'Name'], 
+    #         [(170, 100), (280, 250), 'text', 'Start Time'], 
+    #         [(280, 100), (400, 250), 'text', 'Exit Time']]
 
-        imgShow = imgScan.copy()
-        imgMask = np.zeros_like(imgShow)
-        dt = []
-        nm=[]
-        start = []
-        end = []
-        for x,r in enumerate(roi):
-            cv2.rectangle(imgMask,((r[0][0]),r[0][1]),((r[1][0]),r[1][1]),(0,255,0),cv2.FILLED)
-            imgShow = cv2.addWeighted(imgShow,0.99,imgMask,0.6,0)
-            imgCrop = imgScan[r[0][1]:r[1][1],r[0][0]:r[1][0]]
-            if r[3]=='Start Time':
-                start.append(pytesseract.image_to_string(imgCrop))
-            elif r[3]=='Exit Time':
-                end.append(pytesseract.image_to_string(imgCrop))
-            elif r[3]=='Name':
-                nm.append(pytesseract.image_to_string(imgCrop))
-            else:
-                dt.append(pytesseract.image_to_string(imgCrop))
+    #     imgShow = imgScan.copy()
+    #     imgMask = np.zeros_like(imgShow)
+    #     dt = []
+    #     nm=[]
+    #     start = []
+    #     end = []
+    #     for x,r in enumerate(roi):
+    #         cv2.rectangle(imgMask,((r[0][0]),r[0][1]),((r[1][0]),r[1][1]),(0,255,0),cv2.FILLED)
+    #         imgShow = cv2.addWeighted(imgShow,0.99,imgMask,0.6,0)
+    #         imgCrop = imgScan[r[0][1]:r[1][1],r[0][0]:r[1][0]]
+    #         if r[3]=='Start Time':
+    #             start.append(pytesseract.image_to_string(imgCrop))
+    #         elif r[3]=='Exit Time':
+    #             end.append(pytesseract.image_to_string(imgCrop))
+    #         elif r[3]=='Name':
+    #             nm.append(pytesseract.image_to_string(imgCrop))
+    #         else:
+    #             dt.append(pytesseract.image_to_string(imgCrop))
         
-        print(f'Names : {nm}')
-        print(f'Start : {start}')
-        print(f'Exit : {end}')
-        print(f'Date : {dt}')
-                
+    #     print(f'Names : {nm}')
+    #     print(f'Start : {start}')
+    #     print(f'Exit : {end}')
+    #     print(f'Date : {dt}')
 
 
-        return JsonResponse("created",safe=False) 
+        # [
+        #     {'name':'Chaitanya','start':'12:00','end':'01:00'},
+        #     {'name':'Jainam','start':'02:20','end':'04:00'},
+        #     {'name':'Manan','start':'12:00','end':'02:00'},
+        #     {'name':'Alankrit','start':'11:00','end':'20:00'},
+
+        # ]
+        # 'data':[
+        #     {'name':'Chaitanya','start':'12:00','end':'01:00'},
+        #     {'name':'Jainam','start':'02:20','end':'04:00'},
+        #     {'name':'Manan','start':'12:00','end':'02:00'},
+        #     {'name':'Alankrit','start':'11:00','end':'20:00'},
+
+        # ],'Date':'27-03-2022'
+        time.sleep(3)
+        return JsonResponse({'data':[['ck','12:00','12:00'],['ck','12:00','12:00'],['ck','12:00','12:00'],['ck','12:00','12:00']]},safe=False) 
 @csrf_exempt
 def getContractors(request):
     if request.method == "GET":

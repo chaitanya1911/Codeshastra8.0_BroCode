@@ -13,6 +13,7 @@ import WorkerDashboard from "./screens/WorkerDashboard";
 import CreateNewProj from "./screens/CreateNewProj";
 import Footer from "./components/Footer";
 import AttendanceOCR from "./screens/AttendanceOCR";
+import OCR from "./screens/OCR";
 
 function App() {
   // const [User,setUser] = useState({
@@ -30,6 +31,7 @@ function App() {
           <Route path="/owner/createNewProj" exact element={<CreateNewProj />} />
           <Route path="/owner/project" exact element={<Projects />} />
           <Route path="/owner" exact element={<Owner />} />
+          <Route path="/contractor/dashboard/ocr" exact element={<OCR></OCR>} />
           <Route
             path="/worker/dashboard"
             exact
