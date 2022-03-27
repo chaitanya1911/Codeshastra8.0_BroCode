@@ -47,7 +47,7 @@ function CreateNewProj() {
           date: formData.date,
         },
       })
-      .then((res) => {})
+      .then((res) => { })
       .catch((e) => console.log(e));
   };
   function setloc(lat, lng) {
@@ -64,12 +64,12 @@ function CreateNewProj() {
       setContractors(res.data.data);
     });
 
-    return () => {};
+    return () => { };
   }, []);
 
   return (
     <>
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 5, lg: 8 }}>
+      <SimpleGrid padding={10} columns={{ base: 1, md: 2 }} spacing={{ base: 5, lg: 8 }}>
         <Form onSubmit={handleSubmit}>
           <Box>
             <input
@@ -110,15 +110,16 @@ function CreateNewProj() {
               type="date"
             ></input>
           </Box>
-          <Box>
-            {" "}
-            <DragableMarkerMap
-              formData={formData}
-              setloc={setloc}
-            ></DragableMarkerMap>
-          </Box>
+
           <Button type="submit">Create</Button>
         </Form>
+        <Box>
+          {" "}
+          <DragableMarkerMap
+            formData={formData}
+            setloc={setloc}
+          ></DragableMarkerMap>
+        </Box>
       </SimpleGrid>
     </>
   );

@@ -23,12 +23,12 @@ function App() {
       <Router>
         <Header></Header>
         <Routes>
+          <Route path="/attendance" exact element={<AttendanceOCR />} />
           <Route path="/login" exact element={<Login />} />
           <Route path="/signup" exact element={<SignUp />} />
-          <Route path="/createNewProj" exact element={<CreateNewProj />} />
-          <Route path="/project" exact element={<Projects />} />
-          <Route path="/attendance" exact element={<AttendanceOCR />} />
 
+          <Route path="/owner/createNewProj" exact element={<CreateNewProj />} />
+          <Route path="/owner/project" exact element={<Projects />} />
           <Route path="/owner" exact element={<Owner />} />
           <Route
             path="/worker/dashboard"
