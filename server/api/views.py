@@ -23,6 +23,7 @@ import numpy as np
 import pytesseract
 import os
 import cv2
+import torch
 
 pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe' #Install from Pytess
 
@@ -160,7 +161,7 @@ def vv(request):
 
 @csrf_exempt
 def ocr(request):
-    if request.method == "GET":
+    if request.method == "POST":
         img = cv2.imread('../server/api/images/ocr1.JPG')
         orb = cv2.ORB_create(500)
         kp1,des1 = orb.detectAndCompute(img,None)
@@ -206,13 +207,9 @@ def ocr(request):
 
         nam = nm[0].split('\n')
         star = start[0].split('\n')
-        for i in star:
-            if len(i)<4: #i=='':
-                i = 'NA'
+        
         en = end[0].split('\n')
-        for i in en:
-            if len(i)<4: #i=='':
-                i = 'NA'
+        
         dat = dt[0][7:15]
         
         
@@ -222,16 +219,18 @@ def ocr(request):
         # print(f'End : {end}')
         
         naam=[]
+        print('......')
         for x in range(0,len(nam)):
             if(nam[x]!=""):
-                if(nam[x].split('"')[1]):
-                    print(nam[x].split('"'))
+                naam.append(nam[x].split('"'))
                     
         print(f'Names : {naam}')
         print(f'Start : {star}')
         print(f'Exit : {en}')
         print(f'Date : {dat}')
-        print(naam[0])
+        return JsonResponse({'data':[[naam[0],star[1],en[1]],[naam[1],star[2],en[2]],[naam[2],star[3],en[3]],[naam[3],star[4],en[4]],[naam[4],star[5],en[5]]]},safe=False) 
+
+        # print(naam[0])
 
 
         # [
@@ -249,7 +248,6 @@ def ocr(request):
 
         # ],'Date':'27-03-2022'
         # time.sleep(3)
-        return JsonResponse({'data':[[naam[0],star[1],en[1]],[naam[1],star[2],en[2]],[naam[2],star[3],en[3]],[naam[3],star[4],en[4]],[naam[4],star[5],en[5]]]},safe=False) 
 @csrf_exempt
 def getContractors(request):
     if request.method == "GET":

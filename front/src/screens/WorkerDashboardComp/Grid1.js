@@ -16,12 +16,13 @@ import { BsPerson } from 'react-icons/bs';
 // import { FiServer } from 'react-icons/fi';
 import { AiFillAlert } from "react-icons/ai";
 import { GoLocation } from 'react-icons/go';
-import React from 'react'
+import React,{useState} from 'react'
 import { dash } from '../dash';
 import { data } from 'jquery';
 
 
 const Grid1 = () => {
+    const [counter, setCounter] = useState(0)
 
 
     const StatsCard = (props) => {
@@ -65,15 +66,15 @@ const Grid1 = () => {
                 <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
                     <StatsCard
                         title={'Total Attendance'}
-                        stat={`${dash.attendance.present}/${dash.attendance.total} days`}
+                        stat={`${dash.attendance.present[0]}/${dash.attendance.total[0]} days`}
                         icon={<BsPerson size={'3em'} />}
                     />
                     <StatsCard
                         title={'Violations'}
                         stat={
                             <>
-                                <Text>Today's Violation: {dash.vio.today}</Text>
-                                <Text>Total Violations: {dash.vio.total}</Text>
+                                <Text>Today's Violation: {dash.vio.today[0]}</Text>
+                                <Text>Total Violations: {dash.vio.total[0]}</Text>
                             </>
                         }
                         size={'md'}

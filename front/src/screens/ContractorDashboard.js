@@ -2,15 +2,17 @@ import { Box, Center,
   // Flex, 
   Grid, GridItem, Heading,  
  } from '@chakra-ui/react';
-import React from 'react';
+import React, {useState} from 'react';
 // import styles from "./ContractorDashboard.module.scss";
 import AttendanceChart from './ContractorDashboardComp/AttendanceChart';
 import Grid1 from './ContractorDashboardComp/Grid1';
 import TopNav from "./ContractorDashboardComp/TopNav";
 import MyMap from "../components/MyMap";
+import { dash12 } from './dash';
 import WorkerList from './ContractorDashboardComp/WorkerList';
 
 const Dashboard = () => {
+  const [timeNum, setTimeNum] = useState(0);
   return (
     <Box m={'10'}>
       {/* <Flex> */}
@@ -18,7 +20,7 @@ const Dashboard = () => {
         <TopNav />
       </Box>
       <Box mt={'10'}>
-        <Grid1 />
+        <Grid1 timeNum={timeNum} setTimeNum={setTimeNum} />
       </Box>
       <Box mt={'10'}>
         <Grid
@@ -33,7 +35,7 @@ const Dashboard = () => {
             <Center>
               <Heading fontWeight={'bold'}>Attendance Report</Heading>
             </Center>
-            <AttendanceChart />
+            <AttendanceChart dash12={dash12} ind = {timeNum}  />
           </GridItem>
           {/* <GridItem
             colSpan={1}

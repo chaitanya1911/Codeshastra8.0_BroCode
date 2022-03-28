@@ -140,7 +140,7 @@ function OCR() {
           </Button>
         </div>
 
-        <Table variant="striped" colorScheme="teal">
+        <Table variant="striped" colorScheme="teal" style={{marginTop:'60px'}}>
           <TableCaption>Attendance Sheet</TableCaption>
           <Thead>
             <Tr>
@@ -150,11 +150,13 @@ function OCR() {
             </Tr>
           </Thead>
           <Tbody>
-            {/* <Tr>
-              <Td>inches</Td>
-              <Td>millimetres (mm)</Td>
-              <Td isNumeric>25.4</Td>
-            </Tr>             */}
+            {setDate.map((res)=>{
+             return <Tr>
+              <Td>{res[0]}</Td>
+              <Td>{res[1]}</Td>
+              <Td isNumeric>{res[2]}</Td>
+            </Tr> 
+            })           }
           </Tbody>          
         </Table>
       </form>

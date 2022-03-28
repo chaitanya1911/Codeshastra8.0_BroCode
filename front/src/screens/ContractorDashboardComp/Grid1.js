@@ -14,14 +14,15 @@ import {
 } from '@chakra-ui/react';
 import { BsPerson } from 'react-icons/bs';
 // import { FiServer } from 'react-icons/fi';
+import { dash } from '../dash';
 import { AiFillAlert } from "react-icons/ai";
 import { GoLocation } from 'react-icons/go';
 import React, { useState } from 'react'
 
 
-const Grid1 = () => {
+const Grid1 = ({timeNum, setTimeNum}) => {
 
-    const [timeNum, setTimeNum] = useState(0);
+    // const [timeNum, setTimeNum] = useState(0);
 
     const timeLineData = [
         { id: 0, name: "Daily", },
@@ -82,15 +83,15 @@ const Grid1 = () => {
                 <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
                     <StatsCard
                         title={'Attendance'}
-                        stat={'60/65'}
+                        stat={`${dash.attendance.present[timeNum]}`}
                         icon={<BsPerson size={'3em'} />}
                     />
                     <StatsCard
                         title={'Violations'}
                         stat={
                             <>
-                                <Text>Today's Violation: 5</Text>
-                                <Text>Average Violation's per day: 7</Text>
+                                <Text>{timeNum===0?'Today':timeNum===1?'Weekly':timeNum===2?'Monthly':'Yearly'} 's Violation: {dash.vio.today[timeNum]}</Text>
+                                <Text>Average Violation's per day: {dash.vio.today[timeNum]}</Text>
                             </>
                         }
                         size={'md'}

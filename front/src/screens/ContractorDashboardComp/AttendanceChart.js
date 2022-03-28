@@ -8,50 +8,50 @@ import {
     Tooltip,
 } from "recharts";
 
-const AttendanceChart = () => {
+const AttendanceChart = ({dash12, ind}) => {
 
     const data = [
         {
             name: 'Jan',
-            present: 40,
-            absent: 24,
-            amt: 24,
+            present: dash12.jan.present[ind],
+            absent: dash12.jan.absenr[ind],
+            amt: dash12.jan.amt[ind],
         },
         {
-            name: 'Feb',
-            present: 30,
-            absent: 13,
-            amt: 21,
+            name:"Feb",
+            present: dash12.feb.present[ind],
+            absent: dash12.feb.absenr[ind],
+            amt: dash12.feb.amt[ind],
         },
         {
             name: 'Mar',
-            present: 20,
-            absent: 90,
-            amt: 29,
+            present: dash12.mar.present[ind],
+            absent: dash12.mar.absenr[ind],
+            amt: dash12.mar.amt[ind],
         },
         {
             name: 'Apr',
-            present: 27,
-            absent: 38,
-            amt: 20,
+            present: dash12.apr.present[ind],
+            absent: dash12.apr.absenr[ind],
+            amt: dash12.apr.amt[ind],
         },
         {
             name: 'May',
-            present: 18,
-            absent: 48,
-            amt: 21,
+            present: dash12.may.present[ind],
+            absent: dash12.may.absenr[ind],
+            amt: dash12.may.amt[ind],
         },
         {
             name: 'Jun',
-            present: 23,
-            absent: 38,
-            amt: 25,
+            present: dash12.jun.present[ind],
+            absent: dash12.jun.absenr[ind],
+            amt: dash12.jun.amt[ind],
         },
         {
-            name: 'Jun',
-            present: 34,
-            absent: 43,
-            amt: 21,
+            name: 'Jul',
+            present: dash12.jul.present[ind],
+            absent: dash12.jul.absenr[ind],
+            amt: dash12.jul.amt[ind],
         },
     ];
 
